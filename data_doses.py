@@ -170,6 +170,18 @@ DOSES = {
   "cal": "Clinical anchor: EFSA safe single dose ~200 mg, daily ~400 mg.",
   "srcNote": "TripSit and EFSA agree.",
   "redose": "Counts cumulatively across the whole day — ask about total cans, not the last one."},
+ "synth-cann": {"noNumeric": True,
+  "warn": "No dose bands can exist here: potency varies enormously between batches and even within one bag — one puff of a strong batch can act like a heavy dose. Ask what it looked like and how much was smoked, but do not trust numbers; judge by the person's state."},
+ "kratom": {
+  "variants": [
+   {"id": "oral", "label": "Oral, powder/tea (g)", "unit": "g",
+    "bands": {"light": 1, "common": 2, "strong": 4, "heavy": 6}, "danger": 12,
+    "onsetMin": [10, 40], "durH": "2–5"}],
+  "estimates": [
+   {"label": "1 teaspoon (~2.5 g)", "amount": 2.5, "variant": "oral"},
+   {"label": "1 capsule (~0.6 g)", "amount": 0.6, "variant": "oral"}],
+  "srcNote": "PsychonautWiki/TripSit community bands; potency varies several-fold by strain and vendor, extracts are far stronger per gram.",
+  "redose": "Stacked doses build opioid-type sedation and nausea over the day; the stimulant feel of the first dose is a poor guide to the fourth."},
  "nitrous": {"noNumeric": True,
   "warn": "Dose counting adds little here: the acute risks are falls and oxygen deprivation from many balloons in a row without breaks, or bags/masks. Ask about frequency and setting instead of amounts."},
  "opioids-rec": {"noNumeric": True,

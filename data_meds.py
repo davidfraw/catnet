@@ -3,7 +3,7 @@
 # ev (evidence): est = well documented | case = case reports / expert consensus | theo = theoretical / limited data
 # tpl: mechanism templates from data_core.TEMPLATES
 # Sources: TripSit combos DB; Papaseit 2020 (MDMA drug interactions); Sarparast 2022 (psychedelics+psych meds);
-# Hysek 2012 (SSRI blunting of MDMA); Richards 2017 & CMAJ 2022 (beta-blockers+stimulants); SPC texts; Erowid/PsychonautWiki summaries.
+# Liechti 2000 (SSRI blunting of MDMA); Richards 2017 & Mann 2020 (beta-blockers+stimulants); SPC texts; Erowid/PsychonautWiki summaries.
 
 MED_PAIRS = {
  "ssri": {
@@ -18,6 +18,8 @@ MED_PAIRS = {
    "cocaine": {"risk": "caution", "ev": "case", "note": "Mild serotonergic overlap; mainly cocaine undermines the condition the SSRI treats. Watch mood crash after."},
    "amphetamine": {"risk": "caution", "ev": "case", "note": "Generally tolerated acutely; serotonin risk mainly with methamphetamine or high doses."},
    "opioids-rec": {"risk": "caution", "ev": "case", "tpl": ["SS"], "note": "Fentanyl and some opioids add serotonergic load; case reports of serotonin syndrome."},
+   "kratom": {"risk": "caution", "ev": "case", "tpl": ["SS"], "note": "Kratom has mild serotonergic and opioid activity — case reports of bad reactions with antidepressants exist; watch for agitation and twitching."},
+   "synth-cann": {"risk": "caution", "ev": "theo", "tpl": ["PSYCH"], "note": "Unpredictable on its own; no specific interaction known, but mental-state swings hit people on antidepressants harder."},
    "alcohol": {"risk": "caution", "ev": "est", "note": "Additive impairment and judgement effects; hangover + SSRI can worsen mood swings. Not acutely dangerous at moderate intake."},
   }},
  "snri": {
@@ -26,7 +28,7 @@ MED_PAIRS = {
    "mdma": {"risk": "high", "ev": "est", "tpl": ["SS", "CARDIO", "HYPERTHERMIA"], "note": "Blunted effect (redose temptation) + serotonin syndrome risk + additive blood-pressure/heart-rate load. Venlafaxine is repeatedly implicated in case reports."},
    "dxm": {"risk": "danger", "ev": "est", "tpl": ["SS"], "note": "High serotonin-syndrome risk."},
    "mephedrone": {"risk": "high", "ev": "case", "tpl": ["SS", "CARDIO"], "note": "Serotonergic + cardiovascular double load."},
-   "cocaine": {"risk": "high", "ev": "case", "tpl": ["CARDIO"], "note": "Additive noradrenergic strain — blood pressure and heart rate."},
+   "cocaine": {"risk": "high", "ev": "case", "tpl": ["CARDIO"], "note": "Both push blood pressure and heart rate up at once."},
    "amphetamine": {"risk": "high", "ev": "case", "tpl": ["CARDIO"], "note": "Additive cardiovascular strain; monitor pulse and agitation."},
    "lsd": {"risk": "low", "ev": "case", "note": "Usually blunted trip; no major safety signal."},
    "mushrooms": {"risk": "low", "ev": "case", "note": "Usually blunted trip."},
@@ -35,10 +37,10 @@ MED_PAIRS = {
  "tca": {
   "default": {"risk": "caution", "ev": "est", "note": "Old-generation antidepressants: cardiotoxic, lower the seizure threshold, strongly sedating/anticholinergic. Treat any combo more seriously than with SSRIs."},
   "pairs": {
-   "mdma": {"risk": "danger", "ev": "case", "tpl": ["SS", "CARDIO"], "note": "Serotonin syndrome plus arrhythmia risk — TCAs destabilise cardiac conduction; MDMA adds massive sympathetic load."},
+   "mdma": {"risk": "danger", "ev": "case", "tpl": ["SS", "CARDIO"], "note": "Serotonin syndrome plus arrhythmia risk — TCAs destabilise cardiac conduction; MDMA adds a massive extra load on the heart."},
    "amphetamine": {"risk": "high", "ev": "case", "tpl": ["CARDIO", "SEIZURE"], "note": "Arrhythmia and hypertensive risk; TCAs also lower seizure threshold."},
    "cocaine": {"risk": "high", "ev": "case", "tpl": ["CARDIO", "SEIZURE"], "note": "Both destabilise cardiac conduction (sodium-channel effects) — arrhythmia risk well above either alone."},
-   "dxm": {"risk": "danger", "ev": "case", "tpl": ["SS"], "note": "Serotonin syndrome risk plus additive anticholinergic delirium."},
+   "dxm": {"risk": "danger", "ev": "case", "tpl": ["SS"], "note": "Serotonin-syndrome risk plus stacked confusion/hallucination (delirium) effects."},
    "alcohol": {"risk": "high", "ev": "est", "tpl": ["CNSDEP"], "note": "Strong additive sedation; TCA + alcohol is significantly more impairing than either alone."},
    "ketamine": {"risk": "caution", "ev": "theo", "tpl": ["CARDIO"], "note": "Additive blood-pressure rise and sedation."},
    "ghb": {"risk": "high", "ev": "theo", "tpl": ["CNSDEP"], "note": "Additive CNS depression."},
@@ -59,6 +61,8 @@ MED_PAIRS = {
    "2c-x": {"risk": "danger", "ev": "case", "tpl": ["SS", "HTN"], "note": "MAOIs potentiate phenethylamines unpredictably — treat as dangerous."},
    "ketamine": {"risk": "caution", "ev": "theo", "note": "Limited data; possible potentiation."},
    "cannabis": {"risk": "caution", "ev": "theo", "note": "Possible potentiation of tachycardia; limited data."},
+   "kratom": {"risk": "high", "ev": "theo", "tpl": ["SS", "CNSDEP"], "note": "Kratom's monoamine and opioid activity on top of an MAOI is unstudied — treat as unsafe."},
+   "synth-cann": {"risk": "high", "ev": "theo", "tpl": ["PSYCH", "CARDIO"], "note": "Unstudied; both unpredictable — treat as unsafe."},
    "caffeine": {"risk": "caution", "ev": "case", "note": "Can add to blood-pressure load; keep intake modest."},
   }},
  "bupropion": {
@@ -94,12 +98,13 @@ MED_PAIRS = {
    "alcohol": {"risk": "caution", "ev": "est", "note": "Dehydration + vomiting can push lithium toward toxic levels; hydrate with electrolytes."},
    "amphetamine": {"risk": "caution", "ev": "theo", "tpl": ["HYPERTHERMIA"], "note": "Sweating/dehydration raising lithium levels is the main concern."},
    "cocaine": {"risk": "caution", "ev": "case", "note": "Lithium may blunt cocaine's effects (redose temptation); dehydration concern stands."},
+   "synth-cann": {"risk": "high", "ev": "theo", "tpl": ["SEIZURE", "PSYCH"], "note": "Convulsant cannabinoid + lithium's own seizure signal with psychoactives — avoid."},
    "ketamine": {"risk": "low", "ev": "case", "note": "No major acute interaction signal."},
   }},
  "antipsych": {
   "default": {"risk": "caution", "ev": "est", "note": "Antipsychotics blunt stimulants and psychedelics (redose temptation), add sedation, and several (quetiapine, olanzapine) prolong QT and drop blood pressure on standing — fainting in heat is common."},
   "pairs": {
-   "alcohol": {"risk": "high", "ev": "est", "tpl": ["CNSDEP"], "note": "Quetiapine + alcohol is heavily sedating; orthostatic fainting in hot crowds."},
+   "alcohol": {"risk": "high", "ev": "est", "tpl": ["CNSDEP"], "note": "Quetiapine + alcohol is heavily sedating; fainting on standing up in hot crowds."},
    "ghb": {"risk": "danger", "ev": "theo", "tpl": ["CNSDEP"], "note": "Strong additive sedation with a steep-curve depressant."},
    "opioids-rec": {"risk": "high", "ev": "case", "tpl": ["CNSDEP"], "note": "Additive sedation and respiratory depression."},
    "benzos-rec": {"risk": "high", "ev": "est", "tpl": ["CNSDEP"], "note": "Additive sedation."},
@@ -107,6 +112,7 @@ MED_PAIRS = {
    "mdma": {"risk": "caution", "ev": "case", "tpl": ["CARDIO"], "note": "Blunted effect plus QT-prolongation overlap; the practical risk is redosing and arrhythmia in a dehydrated overheated body."},
    "amphetamine": {"risk": "caution", "ev": "case", "note": "Pharmacological tug-of-war: blunted high, redose temptation, arrhythmia overlap with some agents."},
    "cocaine": {"risk": "caution", "ev": "case", "note": "As amphetamine; also lowers seizure threshold with clozapine-type agents."},
+   "synth-cann": {"risk": "high", "ev": "case", "tpl": ["PSYCH", "SEIZURE"], "note": "People prescribed antipsychotics are exactly the group synthetic cannabinoids destabilise most — psychosis relapse risk is real; several antipsychotics also lower the seizure threshold."},
    "lsd": {"risk": "caution", "ev": "case", "note": "May blunt or abort the trip (quetiapine is sometimes used that way clinically) — but unsupervised redosing is the risk."},
   }},
  "anticonv": {
@@ -130,6 +136,8 @@ MED_PAIRS = {
    "lsd": {"risk": "caution", "ev": "case", "tpl": ["PSYCH", "CARDIO"], "note": "Additive heart-rate load and higher anxiety/thought-loop risk."},
    "mushrooms": {"risk": "caution", "ev": "case", "tpl": ["PSYCH"], "note": "As LSD — anxiety amplification."},
    "dxm": {"risk": "high", "ev": "case", "tpl": ["CARDIO", "SS"], "note": "Sympathetic + serotonergic load; avoid."},
+   "synth-cann": {"risk": "high", "ev": "case", "tpl": ["PSYCH", "CARDIO"], "note": "Stimulant on top of a convulsant, psychosis-prone cannabinoid — agitation, heart strain and paranoia all amplified."},
+   "kratom": {"risk": "caution", "ev": "theo", "note": "Additive stimulation at low kratom amounts; masking of sedation at high ones."},
    "ghb": {"risk": "caution", "ev": "theo", "tpl": ["CNSDEP"], "note": "Stimulant masks GHB sedation — when it wears off, the full depressant load lands at once."},
   }},
  "atomoxetine": {
@@ -150,6 +158,8 @@ MED_PAIRS = {
    "benzos-rec": {"risk": "high", "ev": "est", "tpl": ["CNSDEP"], "note": "Stacking doses of the same class — easy to overshoot into blackout."},
    "amphetamine": {"risk": "caution", "ev": "est", "note": "Opposing effects mask each other; overdose risk when one wears off first."},
    "mdma": {"risk": "low", "ev": "est", "note": "Benzo blunts the comedown; main issue is sedation once MDMA fades."},
+   "kratom": {"risk": "high", "ev": "case", "tpl": ["CNSDEP"], "note": "Opioid-like sedation stacks with benzos."},
+   "synth-cann": {"risk": "caution", "ev": "theo", "note": "Benzos are what medics actually use to calm synthetic-cannabinoid agitation — but self-dosed on top, watch sedation depth."},
    "cannabis": {"risk": "caution", "ev": "est", "note": "Additive sedation and impairment."},
   }},
  "z-drug": {
@@ -159,6 +169,7 @@ MED_PAIRS = {
    "ghb": {"risk": "danger", "ev": "est", "tpl": ["CNSDEP"], "note": "As benzos + GHB — rapid unconsciousness."},
    "opioids-rec": {"risk": "danger", "ev": "est", "tpl": ["CNSDEP"], "note": "Respiratory depression stacking."},
    "ketamine": {"risk": "high", "ev": "theo", "tpl": ["CNSDEP"], "note": "Additive sedation."},
+   "kratom": {"risk": "high", "ev": "case", "tpl": ["CNSDEP"], "note": "Opioid-like sedation stacks with sleep meds."},
    "benzos-rec": {"risk": "high", "ev": "est", "tpl": ["CNSDEP"], "note": "Same receptor system — doses stack."},
   }},
  "melatonin": {
@@ -178,6 +189,8 @@ MED_PAIRS = {
    "cocaine": {"risk": "high", "ev": "case", "tpl": ["SEIZURE"], "note": "As amphetamine."},
    "ketamine": {"risk": "caution", "ev": "case", "tpl": ["CNSDEP"], "note": "Additive dizziness, nausea, loss of consciousness at higher doses."},
    "dxm": {"risk": "high", "ev": "case", "tpl": ["CNSDEP", "SEIZURE"], "note": "Additive sedation + seizure concerns."},
+   "kratom": {"risk": "high", "ev": "case", "tpl": ["CNSDEP"], "note": "Gabapentinoids multiply opioid-type breathing depression — kratom counts."},
+   "synth-cann": {"risk": "high", "ev": "theo", "tpl": ["SEIZURE"], "note": "Both carry seizure signals."},
    "nitrous": {"risk": "caution", "ev": "case", "note": "Additive ataxia/sedation — do it sitting down, watch airway."},
   }},
  "antihist-sed": {
@@ -216,6 +229,8 @@ MED_PAIRS = {
    "mushrooms": {"risk": "high", "ev": "case", "tpl": ["SEIZURE"], "note": "As LSD."},
    "2c-x": {"risk": "high", "ev": "case", "tpl": ["SEIZURE"], "note": "As LSD — seizure threshold."},
    "nitrous": {"risk": "caution", "ev": "case", "note": "Additive sedation/ataxia; sit down."},
+   "kratom": {"risk": "danger", "ev": "case", "tpl": ["SEIZURE", "SS", "CNSDEP"], "note": "Both lower the seizure threshold, both add serotonergic and opioid load — documented bad combination."},
+   "synth-cann": {"risk": "high", "ev": "case", "tpl": ["SEIZURE"], "note": "Both make seizures more likely."},
    "cannabis": {"risk": "low", "ev": "est", "note": "Mild synergy; not a major safety signal."},
   }},
  "opioid-rx": {
@@ -230,6 +245,7 @@ MED_PAIRS = {
    "amphetamine": {"risk": "caution", "ev": "est", "tpl": ["CNSDEP"], "note": "Masking dynamic as with cocaine."},
    "nitrous": {"risk": "caution", "ev": "case", "tpl": ["CNSDEP"], "note": "Additive sedation; unexpected loss of consciousness at high doses."},
    "cannabis": {"risk": "low", "ev": "est", "note": "Mild synergy, mainly more sedation."},
+   "kratom": {"risk": "high", "ev": "case", "tpl": ["CNSDEP"], "note": "Kratom is opioid-active — doses stack with prescribed opioids into deeper sedation and slower breathing."},
    "mdma": {"risk": "caution", "ev": "case", "note": "Masking dynamic; some serotonergic opioids (fentanyl) add serotonin load."},
   }},
  "beta-blocker": {
@@ -239,8 +255,8 @@ MED_PAIRS = {
    "amphetamine": {"risk": "high", "ev": "theo", "tpl": ["CARDIO"], "note": "Same unopposed-alpha concern and warning-sign masking as cocaine."},
    "mdma": {"risk": "caution", "ev": "theo", "tpl": ["CARDIO", "HYPERTHERMIA"], "note": "Masked tachycardia + reduced exercise tolerance while dancing in heat; fainting risk."},
    "mephedrone": {"risk": "high", "ev": "theo", "tpl": ["CARDIO"], "note": "As other stimulants."},
-   "alcohol": {"risk": "caution", "ev": "est", "note": "Additive blood-pressure drop on standing — fainting in hot crowds; alcohol can mask hypoglycemia-like symptoms."},
-   "cannabis": {"risk": "caution", "ev": "theo", "note": "Orthostatic hypotension additive with THC — dizziness on standing."},
+   "alcohol": {"risk": "caution", "ev": "est", "note": "Both drop blood pressure on standing — fainting in hot crowds; alcohol can hide low-blood-sugar symptoms."},
+   "cannabis": {"risk": "caution", "ev": "theo", "note": "Both drop blood pressure when standing up — dizziness, falls."},
    "ketamine": {"risk": "low", "ev": "theo", "note": "No major signal at recreational doses."},
   }},
  "antihyp": {

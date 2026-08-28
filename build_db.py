@@ -19,8 +19,47 @@ FILLS = {
  "mephedrone|benzos-rec": {"risk": "caution", "note": "Opposing effects mask each other; benzo redosing during comedown risks oversedation once the stimulant clears.", "src": "curated"},
 }
 
+NEW_SUB_FILLS = {
+ # synthetic cannabinoids
+ "alcohol|synth-cann": {"risk": "high", "note": "Heavy sedation, vomiting and collapse — a common bad-outcome pairing in emergency reports.", "tpl": ["CNSDEP"], "src": "curated"},
+ "cannabis|synth-cann": {"risk": "caution", "note": "Users often don't know their material is synthetic. THC on top tells you nothing about total dose — treat mixed or unknown 'weed' as synthetic.", "src": "curated"},
+ "mdma|synth-cann": {"risk": "high", "note": "Stimulant load on top of a convulsant, psychosis-prone cannabinoid.", "tpl": ["CARDIO", "PSYCH", "SEIZURE"], "src": "curated"},
+ "amphetamine|synth-cann": {"risk": "high", "note": "Agitation, heart strain and paranoia all amplified; seizure risk adds up.", "tpl": ["CARDIO", "PSYCH", "SEIZURE"], "src": "curated"},
+ "cocaine|synth-cann": {"risk": "high", "note": "As with other stimulants — cardiovascular and psychosis load amplified.", "tpl": ["CARDIO", "PSYCH"], "src": "curated"},
+ "mephedrone|synth-cann": {"risk": "high", "note": "Stimulant + convulsant cannabinoid — agitation and seizure risk.", "tpl": ["CARDIO", "PSYCH", "SEIZURE"], "src": "curated"},
+ "lsd|synth-cann": {"risk": "high", "note": "Two unpredictable psychoactives — difficult trips and psychotic reactions much more likely.", "tpl": ["PSYCH"], "src": "curated"},
+ "mushrooms|synth-cann": {"risk": "high", "note": "As LSD — psychological risk multiplies.", "tpl": ["PSYCH"], "src": "curated"},
+ "2c-x|synth-cann": {"risk": "high", "note": "Unpredictable × unpredictable — avoid.", "tpl": ["PSYCH"], "src": "curated"},
+ "ketamine|synth-cann": {"risk": "caution", "note": "Sedation and dissociation stack; falls and vomiting.", "src": "curated"},
+ "ghb|synth-cann": {"risk": "high", "note": "Sedation stacks unpredictably with a substance that can itself cause collapse.", "tpl": ["CNSDEP"], "src": "curated"},
+ "nitrous|synth-cann": {"risk": "caution", "note": "Blackout and fall risk on top of an unpredictable substance; sit down.", "src": "curated"},
+ "dxm|synth-cann": {"risk": "high", "note": "Dissociation + delirium-prone cannabinoid — confusion and psychological distress likely.", "tpl": ["PSYCH"], "src": "curated"},
+ "opioids-rec|synth-cann": {"risk": "high", "note": "Additive sedation on an unpredictable base.", "tpl": ["CNSDEP"], "src": "curated"},
+ "benzos-rec|synth-cann": {"risk": "caution", "note": "Benzos are what medics use for synthetic-cannabinoid agitation — but self-dosed on top, watch sedation depth and breathing.", "src": "curated"},
+ "caffeine|synth-cann": {"risk": "caution", "note": "Extra heart-rate load and jitteriness on a substance already straining the heart.", "src": "curated"},
+ "synth-cann|kratom": {"risk": "high", "note": "Unpredictable convulsant + opioid-type sedation — no data, treat as unsafe.", "tpl": ["CNSDEP", "SEIZURE"], "src": "curated"},
+ # kratom
+ "alcohol|kratom": {"risk": "high", "note": "A common real-world pairing that ends in heavy sedation and vomiting; opioid-type breathing depression stacks with alcohol.", "tpl": ["CNSDEP"], "src": "curated"},
+ "cannabis|kratom": {"risk": "caution", "note": "Additive sedation and nausea.", "src": "curated"},
+ "mdma|kratom": {"risk": "caution", "note": "Kratom adds mild serotonergic and stimulant load; watch agitation and overheating.", "tpl": ["SS"], "src": "curated"},
+ "amphetamine|kratom": {"risk": "caution", "note": "Additive stimulation at low kratom doses; at high doses kratom's sedation is masked until the stimulant fades.", "src": "curated"},
+ "cocaine|kratom": {"risk": "caution", "note": "As amphetamine — masking dynamic.", "src": "curated"},
+ "mephedrone|kratom": {"risk": "caution", "note": "Additive stimulant/serotonergic load.", "tpl": ["SS"], "src": "curated"},
+ "lsd|kratom": {"risk": "caution", "note": "Little data; kratom's opioid sedation may blunt or muddle the trip.", "src": "curated"},
+ "mushrooms|kratom": {"risk": "caution", "note": "Little data; additive nausea is the practical issue.", "src": "curated"},
+ "2c-x|kratom": {"risk": "caution", "note": "Little data — keep doses of both low.", "src": "curated"},
+ "ketamine|kratom": {"risk": "caution", "note": "Additive sedation and nausea; vomiting while dissociated is an airway risk.", "tpl": ["CNSDEP"], "src": "curated"},
+ "ghb|kratom": {"risk": "danger", "note": "Opioid-type sedation + GHB is respiratory-depression stacking.", "tpl": ["CNSDEP"], "src": "curated"},
+ "nitrous|kratom": {"risk": "caution", "note": "Additive sedation; sit down.", "src": "curated"},
+ "dxm|kratom": {"risk": "high", "note": "Serotonergic + opioid overlap on both sides — agitation, sedation and breathing concerns together.", "tpl": ["SS", "CNSDEP"], "src": "curated"},
+ "opioids-rec|kratom": {"risk": "danger", "note": "Kratom is opioid-active — doses stack into respiratory depression.", "tpl": ["CNSDEP"], "src": "curated"},
+ "benzos-rec|kratom": {"risk": "high", "note": "Opioid-type sedation + benzos — breathing and airway watch.", "tpl": ["CNSDEP"], "src": "curated"},
+ "caffeine|kratom": {"risk": "low", "note": "Common pairing; mild extra stimulation.", "src": "curated"},
+}
+
 sub_pairs = dict(tripsit)
 sub_pairs.update(FILLS)
+sub_pairs.update(NEW_SUB_FILLS)
 
 # Attach mechanism templates to rec-x-rec pairs by category logic
 CAT = {s["id"]: s["cat"] for s in SUBSTANCES}
@@ -51,15 +90,16 @@ db = {
         "version": open("VERSION").read().strip(),
         "built": datetime.date.today().isoformat(),
         "language": "en",
-        "disclaimer": "Decision-support for trained harm-reduction volunteers. Not medical advice, not a diagnosis tool. When in doubt, escalate to on-site medics or call 112.",
+        "disclaimer": "Decision-support for trained harm-reduction volunteers. Not medical advice, not a diagnosis tool. When in doubt, hand over to on-site medics or call 112 (EU) / your local emergency number.",
         "sources": [
-            "TripSit combination database (github.com/TripSit/drugs), retrieved 2026-08-28",
-            "Papaseit et al. 2020, MDMA interactions with pharmaceuticals (Expert Opin Drug Metab Toxicol)",
-            "Sarparast et al. 2022, Psychedelics and psychiatric medications (Psychopharmacology)",
-            "Hysek et al. 2012, SSRI pretreatment and MDMA response (Clin Pharmacol Ther)",
-            "Richards et al. 2017 (J Cardiovasc Pharmacol Ther) & CMAJ 2022 — beta-blockers and stimulants",
-            "SmPC/SPC texts of listed medications; Erowid & PsychonautWiki interaction summaries (cross-check only)",
-            "Dose bands: PsychonautWiki + TripSit factsheets (retrieved 2026-08-28), cross-checked, conservative value where they disagree; calibrated against clinical doses (MDMA trials, sodium oxybate, dexamfetamine, EFSA caffeine)",
+            "TripSit combination database. github.com/TripSit/drugs (combos.json), retrieved 2026-08-28",
+            "Papaseit E, et al. MDMA interactions with pharmaceuticals and drugs of abuse. Expert Opin Drug Metab Toxicol. 2020;16(5):357–369. doi:10.1080/17425255.2020.1749262",
+            "Sarparast A, Thomas K, Malcolm B, Stauffer CS. Drug-drug interactions between psychiatric medications and MDMA or psilocybin: a systematic review. Psychopharmacology. 2022;239:1945–1976. doi:10.1007/s00213-022-06083-y",
+            "Liechti ME, Baumann C, Gamma A, Vollenweider FX. Acute psychological effects of MDMA are attenuated by the serotonin uptake inhibitor citalopram. Neuropsychopharmacology. 2000;22(5):513–521. doi:10.1016/S0893-133X(99)00148-7",
+            "Richards JR, et al. β-Blockers, cocaine, and the unopposed α-stimulation phenomenon. J Cardiovasc Pharmacol Ther. 2017;22(3):239–249. doi:10.1177/1074248416681644",
+            "Mann SK, et al. Beta blocker therapy in heart failure patients with active cocaine use: a systematic review. Cardiol Res Pract. 2020. doi:10.1155/2020/1985379",
+            "Dose bands: PsychonautWiki (psychonautwiki.org, CC BY-SA) + TripSit factsheets (drugs.json), both retrieved 2026-08-28; cross-checked, conservative value where they disagree; calibrated against clinical doses (MDMA trials, sodium oxybate/Xyrem SmPC, dexamfetamine SmPC, EFSA caffeine opinion 2015, doi:10.2903/j.efsa.2015.4102)",
+            "SmPC/SPC texts of listed medications; Erowid interaction summaries (cross-check only)",
         ],
     },
     "substances": SUBSTANCES,
