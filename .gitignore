@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+node_modules/
+*.png
+tripsit-drugs.json
+tripsit-meds-dump.txt
+test_app.mjs
+catnet.html
+catnet-pwa.zip
+qr.svg
+metodika.md
