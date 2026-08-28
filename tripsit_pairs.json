@@ -1,0 +1,562 @@
+{
+ "alcohol|cannabis": {
+  "risk": "low",
+  "note": "In excess, this combination can cause nausea. Effects reinforce each other — start lower than usual.",
+  "src": "tripsit"
+ },
+ "alcohol|mdma": {
+  "risk": "caution",
+  "note": "The combination of MDMA and alcohol may increase strain on the cardiovascular system and lead to increased alcohol consumption. MDMA may also impair one's ability to recognize their level of drunkenness, leading to increased alcohol consumption and poor decision-making. Alcohol may also increase the risk of dehydration and hyperthermia (increased body temperature) when combined with MDMA.",
+  "src": "tripsit"
+ },
+ "alcohol|cocaine": {
+  "risk": "high",
+  "note": "Cocaine can decrease some of the intoxicating effects of alcohol, causing some people to drink more than they otherwise would, which leads to greater behavioral and physical health risks. There is also some debate about cocaethylene, a metabolite produced when combining alcohol and cocaine, with some researchers positing that it is more cardiotoxic than cocaine on its own. Use moderation when combining these substances.",
+  "src": "tripsit"
+ },
+ "alcohol|amphetamine": {
+  "risk": "caution",
+  "note": "Drinking on stimulants is risky because the sedative effects of the alcohol are reduced, and these are what the body uses to gauge drunkenness. This typically leads to excessive drinking with greatly reduced inhibitions, high risk of liver damage and increased dehydration. They will also allow you to drink past a point where you might normally pass out, increasing the risk. If you do decide to do this then you should set a limit of how much you will drink each hour and stick to it, bearing in mind that you will feel the alcohol and the stimulant less. Extended release formulations may severely impede sleep, further worsening the hangover.",
+  "src": "tripsit"
+ },
+ "alcohol|ketamine": {
+  "risk": "danger",
+  "note": "Both substances cause ataxia and bring a very high risk of vomiting and unconsciousness. If the user falls unconscious while under the influence there is a severe risk of vomit aspiration if they are not placed in the recovery position.",
+  "src": "tripsit"
+ },
+ "alcohol|lsd": {
+  "risk": "low",
+  "note": "One substance blunts the other; risk of redosing to compensate.",
+  "src": "tripsit"
+ },
+ "alcohol|mushrooms": {
+  "risk": "low",
+  "note": "One substance blunts the other; risk of redosing to compensate.",
+  "src": "tripsit"
+ },
+ "alcohol|ghb": {
+  "risk": "danger",
+  "note": "Even in very low doses this combination rapidly leads to memory loss, severe ataxia and unconsciousness. There is a high risk of vomit aspiration while unconscious.",
+  "src": "tripsit"
+ },
+ "alcohol|nitrous": {
+  "risk": "caution",
+  "note": "Both substances potentiate the ataxia and sedation caused by the other and can lead to unexpected loss of consciousness at high doses. While unconscious, vomit aspiration is a risk if not placed in the recovery position. Memory blackouts are likely.",
+  "src": "tripsit"
+ },
+ "alcohol|2c-x": {
+  "risk": "low",
+  "note": "One substance blunts the other; risk of redosing to compensate.",
+  "src": "tripsit"
+ },
+ "alcohol|dxm": {
+  "risk": "danger",
+  "note": "Both substances potentiate the ataxia and sedation caused by the other and can lead to unexpected loss of consciousness at high doses. Place the affected individual in the recovery position to prevent vomit aspiration from excess. Additionally, CNS depression can lead to difficulty breathing. Avoid on anything higher than 1st plateau.",
+  "src": "tripsit"
+ },
+ "alcohol|opioids-rec": {
+  "risk": "danger",
+  "note": "Both substances potentiate the ataxia and sedation caused by the other and can lead to unexpected loss of consciousness at high doses. Place the affected individual in the recovery position to prevent vomit aspiration from excess. Memory blackouts are likely",
+  "src": "tripsit"
+ },
+ "alcohol|benzos-rec": {
+  "risk": "danger",
+  "note": "Ethanol ingestion may potentiate the CNS effects of many benzodiazepines. The two substances potentiate each other strongly and unpredictably, very rapidly leading to unconsciousness. While unconscious, vomit aspiration is a risk if not placed in the recovery position. Blacking out and memory loss is almost certain.",
+  "src": "tripsit"
+ },
+ "alcohol|caffeine": {
+  "risk": "low",
+  "note": "",
+  "src": "tripsit"
+ },
+ "cannabis|mdma": {
+  "risk": "low",
+  "note": "Large amounts of cannabis may cause strong and somewhat unpredictable experiences in combination with MDMA. Cannabis should be saved for towards the end of the experience if possible. Effects reinforce each other — start lower than usual.",
+  "src": "tripsit"
+ },
+ "cannabis|cocaine": {
+  "risk": "caution",
+  "note": "Stimulants increase anxiety levels and the risk of thought loops which can lead to negative experiences",
+  "src": "tripsit"
+ },
+ "cannabis|amphetamine": {
+  "risk": "caution",
+  "note": "Stimulants increase anxiety levels and the risk of thought loops which can lead to negative experiences",
+  "src": "tripsit"
+ },
+ "cannabis|ketamine": {
+  "risk": "low",
+  "note": "Effects reinforce each other — start lower than usual.",
+  "src": "tripsit"
+ },
+ "cannabis|lsd": {
+  "risk": "caution",
+  "note": "Cannabis has an unexpectedly strong and somewhat unpredictable synergy with psychedelics.",
+  "src": "tripsit"
+ },
+ "cannabis|mushrooms": {
+  "risk": "caution",
+  "note": "Cannabis has an unexpectedly strong and somewhat unpredictable synergy with psychedelics.",
+  "src": "tripsit"
+ },
+ "cannabis|ghb": {
+  "risk": "low",
+  "note": "Effects reinforce each other — start lower than usual.",
+  "src": "tripsit"
+ },
+ "cannabis|nitrous": {
+  "risk": "low",
+  "note": "Effects reinforce each other — start lower than usual.",
+  "src": "tripsit"
+ },
+ "cannabis|2c-x": {
+  "risk": "caution",
+  "note": "Cannabis has an unexpectedly strong and somewhat unpredictable synergy with psychedelics.",
+  "src": "tripsit"
+ },
+ "cannabis|dxm": {
+  "risk": "low",
+  "note": "Effects reinforce each other — start lower than usual.",
+  "src": "tripsit"
+ },
+ "cannabis|opioids-rec": {
+  "risk": "low",
+  "note": "Effects reinforce each other — start lower than usual.",
+  "src": "tripsit"
+ },
+ "cannabis|benzos-rec": {
+  "risk": "low",
+  "note": "One substance blunts the other; risk of redosing to compensate.",
+  "src": "tripsit"
+ },
+ "cannabis|caffeine": {
+  "risk": "low",
+  "note": "",
+  "src": "tripsit"
+ },
+ "mdma|cocaine": {
+  "risk": "caution",
+  "note": "Cocaine blocks some of the desirable effects of MDMA while increasing the risk of heart attack.",
+  "src": "tripsit"
+ },
+ "mdma|amphetamine": {
+  "risk": "caution",
+  "note": "This combination of stimulants will increase strain on the heart, may cause some physical discomfort, and has the chance to cause cardiovascular issues. The anxiogenic and focusing effects of stimulants can increase the chance of unpleasant thought loops and make the experience more uncomfortable, this combination raises these chances. Amphetamines will increase the neurotoxic effects of MDMA, in addition to causing further concerns of hyperthermia due to the inherent nature of the combination. It will also raise one's body temperature, also likely making the combination more neurotoxic.",
+  "src": "tripsit"
+ },
+ "mdma|ketamine": {
+  "risk": "low",
+  "note": "No unexpected interactions, though likely to increase blood pressure but not an issue with sensible doses. Moving around on high doses of  this combination may be ill advised due to risk of physical injury. Effects reinforce each other — start lower than usual.",
+  "src": "tripsit"
+ },
+ "mdma|lsd": {
+  "risk": "low",
+  "note": "Effects reinforce each other — start lower than usual.",
+  "src": "tripsit"
+ },
+ "mdma|mushrooms": {
+  "risk": "low",
+  "note": "Effects reinforce each other — start lower than usual.",
+  "src": "tripsit"
+ },
+ "mdma|ghb": {
+  "risk": "caution",
+  "note": "Large amounts of GHB/GBL may overwhelm the effects of MDMA on the comedown.",
+  "src": "tripsit"
+ },
+ "mdma|nitrous": {
+  "risk": "low",
+  "note": "Effects reinforce each other — start lower than usual.",
+  "src": "tripsit"
+ },
+ "mdma|2c-x": {
+  "risk": "low",
+  "note": "Effects reinforce each other — start lower than usual.",
+  "src": "tripsit"
+ },
+ "mdma|dxm": {
+  "risk": "danger",
+  "note": "",
+  "src": "tripsit"
+ },
+ "mdma|opioids-rec": {
+  "risk": "low",
+  "note": "",
+  "src": "tripsit"
+ },
+ "mdma|mephedrone": {
+  "risk": "danger",
+  "note": "Risk of serotonin syndrome as both drugs raise serotonin levels. Stimulants also increase the neurotoxic effects of MDMA, in addition to concerns of high blood pressure and unnecessary strain on the heart. As well as potentially causing anxiety and greater physical discomfort due to the combination.",
+  "src": "tripsit"
+ },
+ "mdma|benzos-rec": {
+  "risk": "low",
+  "note": "One substance blunts the other; risk of redosing to compensate.",
+  "src": "tripsit"
+ },
+ "mdma|caffeine": {
+  "risk": "caution",
+  "note": "Caffeine is not really necessary with MDMA and increases any neurotoxic effects from MDMA",
+  "src": "tripsit"
+ },
+ "cocaine|amphetamine": {
+  "risk": "caution",
+  "note": "This combination of stimulants will increase strain on the heart. It is not generally worth it as cocaine has a mild blocking effect on dopamine releasers like amphetamine",
+  "src": "tripsit"
+ },
+ "cocaine|ketamine": {
+  "risk": "caution",
+  "note": "No unexpected interactions, though likely to increase blood pressure but not an issue with sensible doses. Moving around on high doses of this combination may be ill advised due to risk of physical injury.",
+  "src": "tripsit"
+ },
+ "cocaine|lsd": {
+  "risk": "caution",
+  "note": "Stimulants increase anxiety levels and the risk of thought loops which can lead to negative experiences",
+  "src": "tripsit"
+ },
+ "cocaine|mushrooms": {
+  "risk": "caution",
+  "note": "Stimulants increase anxiety levels and the risk of thought loops which can lead to negative experiences",
+  "src": "tripsit"
+ },
+ "cocaine|ghb": {
+  "risk": "caution",
+  "note": "Stimulants increase respiration rate allowing for a higher dose of sedatives than normal. If the stimulant wears off first the opiate may overcome the individual and cause respiratory arrest. Likewise the ghb/gbl can wear off and leave a dangerous concentration of cocaine behind",
+  "src": "tripsit"
+ },
+ "cocaine|nitrous": {
+  "risk": "low",
+  "note": "Effects reinforce each other — start lower than usual.",
+  "src": "tripsit"
+ },
+ "cocaine|2c-x": {
+  "risk": "caution",
+  "note": "The anxiogenic and focusing effects of stimulants increase the chance of unpleasant thought loops. The combination is generally unnecessary because of the stimulating effects of psychedelics. Combination of the stimulating effects may be uncomfortable.",
+  "src": "tripsit"
+ },
+ "cocaine|dxm": {
+  "risk": "high",
+  "note": "Both substances raise heart rate, in extreme cases, panic attacks caused by these drugs have led to more serious heart issues",
+  "src": "tripsit"
+ },
+ "cocaine|opioids-rec": {
+  "risk": "danger",
+  "note": "Stimulants increase respiration rate allowing for a higher dose of opiates than normal. If the stimulant wears off first then the opiate may overcome the individual and cause respiratory arrest.",
+  "src": "tripsit"
+ },
+ "cocaine|benzos-rec": {
+  "risk": "low",
+  "note": "One substance blunts the other; risk of redosing to compensate.",
+  "src": "tripsit"
+ },
+ "cocaine|caffeine": {
+  "risk": "caution",
+  "note": "Both stimulants, risk of tachycardia, hypertension, and in extreme cases heart failure.",
+  "src": "tripsit"
+ },
+ "amphetamine|ketamine": {
+  "risk": "caution",
+  "note": "No unexpected interactions, though likely to increase blood pressure but not an issue with sensible doses. Moving around on high doses of this combination may be ill advised due to risk of physical injury.",
+  "src": "tripsit"
+ },
+ "amphetamine|lsd": {
+  "risk": "caution",
+  "note": "Stimulants increase anxiety levels and the risk of thought loops which can lead to negative experiences",
+  "src": "tripsit"
+ },
+ "amphetamine|mushrooms": {
+  "risk": "caution",
+  "note": "Stimulants increase anxiety levels and the risk of thought loops which can lead to negative experiences",
+  "src": "tripsit"
+ },
+ "amphetamine|ghb": {
+  "risk": "caution",
+  "note": "Stimulants increase respiration rate allowing for a higher dose of sedatives. If the stimulant wears off first then the opiate may overcome the individual and cause respiratory arrest.",
+  "src": "tripsit"
+ },
+ "amphetamine|nitrous": {
+  "risk": "low",
+  "note": "Effects reinforce each other — start lower than usual.",
+  "src": "tripsit"
+ },
+ "amphetamine|2c-x": {
+  "risk": "caution",
+  "note": "The anxiogenic and focusing effects of stimulants increase the chance of unpleasant thought loops. The combination is generally unnecessary because of the stimulating effects of psychedelics. Combination of the stimulating effects may be uncomfortable.",
+  "src": "tripsit"
+ },
+ "amphetamine|dxm": {
+  "risk": "high",
+  "note": "Both substances raise heart rate, in extreme cases, panic attacks caused by these drugs have led to more serious heart issues.",
+  "src": "tripsit"
+ },
+ "amphetamine|opioids-rec": {
+  "risk": "caution",
+  "note": "Stimulants increase respiration rate, which can allow for a higher dose of opiates normal . If the stimulant wears off first then the opiate may overcome the individual and cause respiratory arrest.",
+  "src": "tripsit"
+ },
+ "amphetamine|benzos-rec": {
+  "risk": "low",
+  "note": "Both can dull each other's effects, so if one wears off before the other it's possible to overdose due to the lack of counteraction One substance blunts the other; risk of redosing to compensate.",
+  "src": "tripsit"
+ },
+ "amphetamine|caffeine": {
+  "risk": "caution",
+  "note": "This combination of stimulants is not generally necessary and may increase strain on the heart, as well as potentially causing anxiety and greater physical discomfort.",
+  "src": "tripsit"
+ },
+ "ketamine|lsd": {
+  "risk": "low",
+  "note": "Effects reinforce each other — start lower than usual.",
+  "src": "tripsit"
+ },
+ "ketamine|mushrooms": {
+  "risk": "low",
+  "note": "Effects reinforce each other — start lower than usual.",
+  "src": "tripsit"
+ },
+ "ketamine|ghb": {
+  "risk": "danger",
+  "note": "Both substances cause ataxia and bring a risk of vomiting and unconsciousness. If the user falls unconscious while under the influence there is a severe risk of vomit aspiration if they are not placed in the recovery position.",
+  "src": "tripsit"
+ },
+ "ketamine|nitrous": {
+  "risk": "low",
+  "note": "Effects reinforce each other — start lower than usual.",
+  "src": "tripsit"
+ },
+ "ketamine|2c-x": {
+  "risk": "low",
+  "note": "Effects reinforce each other — start lower than usual.",
+  "src": "tripsit"
+ },
+ "ketamine|dxm": {
+  "risk": "low",
+  "note": "Both substances primarily exert their effects through NMDA antagonism. Currently, there is no evidence regarding mechanisms that might reduce these effects. Effects reinforce each other — start lower than usual.",
+  "src": "tripsit"
+ },
+ "ketamine|opioids-rec": {
+  "risk": "danger",
+  "note": "Both substances bring a risk of vomiting and unconsciousness. If the user falls unconscious while under the influence there is a severe risk of vomit aspiration if they are not placed in the recovery position.",
+  "src": "tripsit"
+ },
+ "ketamine|benzos-rec": {
+  "risk": "caution",
+  "note": "Both substances potentiate the ataxia and sedation caused by the other and can lead to unexpected loss of consciousness at high doses. While unconscious, vomit aspiration is a risk if not placed in the recovery position.",
+  "src": "tripsit"
+ },
+ "ketamine|caffeine": {
+  "risk": "low",
+  "note": "No unexpected interactions.",
+  "src": "tripsit"
+ },
+ "lsd|mushrooms": {
+  "risk": "low",
+  "note": "Effects reinforce each other — start lower than usual.",
+  "src": "tripsit"
+ },
+ "lsd|ghb": {
+  "risk": "low",
+  "note": "One substance blunts the other; risk of redosing to compensate.",
+  "src": "tripsit"
+ },
+ "lsd|nitrous": {
+  "risk": "low",
+  "note": "Effects reinforce each other — start lower than usual.",
+  "src": "tripsit"
+ },
+ "lsd|2c-x": {
+  "risk": "low",
+  "note": "Effects reinforce each other — start lower than usual.",
+  "src": "tripsit"
+ },
+ "lsd|dxm": {
+  "risk": "low",
+  "note": "Effects reinforce each other — start lower than usual.",
+  "src": "tripsit"
+ },
+ "lsd|opioids-rec": {
+  "risk": "low",
+  "note": "",
+  "src": "tripsit"
+ },
+ "lsd|mephedrone": {
+  "risk": "caution",
+  "note": "The anxiogenic and focusing effects of stimulants increase the chance of unpleasant thought loops, in addition to the possible negative side effects of coming down from said stimulant while on a psychedelic. In extreme cases, stimulants, especially in combination can result in severe vasoconstriction, tachycardia, hypertension, and heart failure.",
+  "src": "tripsit"
+ },
+ "lsd|benzos-rec": {
+  "risk": "low",
+  "note": "One substance blunts the other; risk of redosing to compensate.",
+  "src": "tripsit"
+ },
+ "lsd|caffeine": {
+  "risk": "low",
+  "note": "",
+  "src": "tripsit"
+ },
+ "mushrooms|ghb": {
+  "risk": "low",
+  "note": "One substance blunts the other; risk of redosing to compensate.",
+  "src": "tripsit"
+ },
+ "mushrooms|nitrous": {
+  "risk": "low",
+  "note": "Effects reinforce each other — start lower than usual.",
+  "src": "tripsit"
+ },
+ "mushrooms|2c-x": {
+  "risk": "low",
+  "note": "Effects reinforce each other — start lower than usual.",
+  "src": "tripsit"
+ },
+ "mushrooms|dxm": {
+  "risk": "low",
+  "note": "Effects reinforce each other — start lower than usual.",
+  "src": "tripsit"
+ },
+ "mushrooms|opioids-rec": {
+  "risk": "low",
+  "note": "",
+  "src": "tripsit"
+ },
+ "mushrooms|mephedrone": {
+  "risk": "low",
+  "note": "Stimulants increase anxiety levels and the risk of thought loops which can lead to negative experiences Effects reinforce each other — start lower than usual.",
+  "src": "tripsit"
+ },
+ "mushrooms|benzos-rec": {
+  "risk": "low",
+  "note": "One substance blunts the other; risk of redosing to compensate.",
+  "src": "tripsit"
+ },
+ "mushrooms|caffeine": {
+  "risk": "low",
+  "note": "",
+  "src": "tripsit"
+ },
+ "ghb|nitrous": {
+  "risk": "caution",
+  "note": "Both substances potentiate the ataxia and sedation caused by the other and can lead to unexpected loss of consciousness at high doses. While unconscious, vomit aspiration is a risk if not placed in the recovery position. Memory blackouts are likely.",
+  "src": "tripsit"
+ },
+ "ghb|2c-x": {
+  "risk": "low",
+  "note": "One substance blunts the other; risk of redosing to compensate.",
+  "src": "tripsit"
+ },
+ "ghb|dxm": {
+  "risk": "danger",
+  "note": "Both substances cause ataxia and bring a risk of vomiting and unconsciousness. If the individual falls unconscious while under the influence there is a severe risk of vomit aspiration if they are not placed in the recovery position. This combination is hard to predict",
+  "src": "tripsit"
+ },
+ "ghb|opioids-rec": {
+  "risk": "danger",
+  "note": "The two substances potentiate each other strongly and unpredictably, very rapidly leading to unconsciousness. While unconscious, vomit aspiration is a risk if not placed in the recovery position",
+  "src": "tripsit"
+ },
+ "ghb|mephedrone": {
+  "risk": "caution",
+  "note": "Both can dull each other's effects, so if one wears off before the other it's possible to overdose due to the lack of counteraction. Both substances affect the heart and may lead to further dangerous heart complications at higher dosages. Additionally, the combination may increase the negative side effects of each other.",
+  "src": "tripsit"
+ },
+ "ghb|benzos-rec": {
+  "risk": "danger",
+  "note": "The two substances potentiate each other strongly and unpredictably, very rapidly leading to unconsciousness. While unconscious, vomit aspiration is a risk if not placed in the recovery position.",
+  "src": "tripsit"
+ },
+ "ghb|caffeine": {
+  "risk": "low",
+  "note": "",
+  "src": "tripsit"
+ },
+ "nitrous|2c-x": {
+  "risk": "low",
+  "note": "Effects reinforce each other — start lower than usual.",
+  "src": "tripsit"
+ },
+ "nitrous|dxm": {
+  "risk": "low",
+  "note": "Effects reinforce each other — start lower than usual.",
+  "src": "tripsit"
+ },
+ "nitrous|opioids-rec": {
+  "risk": "caution",
+  "note": "Both substances potentiate the ataxia and sedation caused by the other and can lead to unexpected loss of consciousness at high doses. While unconscious, vomit aspiration is a risk if not placed in the recovery position. Memory blackouts are likely.",
+  "src": "tripsit"
+ },
+ "nitrous|benzos-rec": {
+  "risk": "low",
+  "note": "One substance blunts the other; risk of redosing to compensate.",
+  "src": "tripsit"
+ },
+ "nitrous|caffeine": {
+  "risk": "low",
+  "note": "",
+  "src": "tripsit"
+ },
+ "2c-x|dxm": {
+  "risk": "low",
+  "note": "Effects reinforce each other — start lower than usual.",
+  "src": "tripsit"
+ },
+ "2c-x|opioids-rec": {
+  "risk": "low",
+  "note": "",
+  "src": "tripsit"
+ },
+ "2c-x|benzos-rec": {
+  "risk": "low",
+  "note": "One substance blunts the other; risk of redosing to compensate.",
+  "src": "tripsit"
+ },
+ "2c-x|caffeine": {
+  "risk": "low",
+  "note": "High doses of caffeine may cause anxiety which is less manageable when tripping, and since both are stimulating the combination may cause some physical discomfort.",
+  "src": "tripsit"
+ },
+ "dxm|opioids-rec": {
+  "risk": "danger",
+  "note": "CNS depression, difficult breathing, heart issues, hepatoxic, just very unsafe combination all around. Additionally if one takes DXM, their tolerance of opiates goes down slightly, thus causing additional synergistic effects.",
+  "src": "tripsit"
+ },
+ "dxm|mephedrone": {
+  "risk": "danger",
+  "note": "Risk of serotonin syndrome as both drugs raise serotonin levels. In addition to concerns of high blood pressure and unnecessary strain on the heart. As well as potentially causing anxiety and greater physical discomfort due to the combination.",
+  "src": "tripsit"
+ },
+ "dxm|benzos-rec": {
+  "risk": "caution",
+  "note": "Small doses of benzos can end a bad trip, but both substances potentiate the ataxia and sedation caused by the other and this can lead to unexpected loss of consciousness at high doses. While unconscious, vomit aspiration is a risk if not placed in the recovery position.",
+  "src": "tripsit"
+ },
+ "dxm|caffeine": {
+  "risk": "caution",
+  "note": "High doses of caffeine can potentially exacerbate anxiety, especially during a dissociative experience, due to its stimulating effects. This combination might also lead to physical discomfort. However, individual responses to caffeine can vary significantly, often influenced by factors like habitual versus occasional usage.",
+  "src": "tripsit"
+ },
+ "opioids-rec|mephedrone": {
+  "risk": "caution",
+  "note": "Stimulants increase respiration rate allowing a higher dose of opiates. If the stimulant wears off first then the opiate may overcome the patient and cause respiratory arrest.",
+  "src": "tripsit"
+ },
+ "opioids-rec|benzos-rec": {
+  "risk": "danger",
+  "note": "Central nervous system and/or respiratory-depressant effects may be additively or synergistically present. The two substances potentiate each other strongly and unpredictably, very rapidly leading to unconsciousness. While unconscious, vomit aspiration is a risk if not placed in the recovery position Blackouts/memory loss likely",
+  "src": "tripsit"
+ },
+ "opioids-rec|caffeine": {
+  "risk": "low",
+  "note": "",
+  "src": "tripsit"
+ },
+ "mephedrone|caffeine": {
+  "risk": "caution",
+  "note": "This combination of stimulants is not generally necessary and may increase strain on the heart, as well as potentially causing anxiety and great physical discomfort. However, individual responses to caffeine can vary significantly, often influenced by factors like habitual versus occasional usage.",
+  "src": "tripsit"
+ },
+ "benzos-rec|caffeine": {
+  "risk": "low",
+  "note": "One substance blunts the other; risk of redosing to compensate.",
+  "src": "tripsit"
+ }
+}

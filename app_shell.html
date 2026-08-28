@@ -1,0 +1,529 @@
+<title>CatNet</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito+Sans:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#FAF6F0; --panel:#FFFFFF; --panel2:#F1EAE0; --ink:#2A2320; --ink2:#6E635B; --line:#E2D8CB;
+  --accent:#5B4FBF; --accent-ink:#FFFFFF; --chip:#FFFFFF; --chip-on:#5B4FBF; --chip-on-ink:#FFFFFF;
+  --cat:#26202B; --net:#5B4FBF;
+  --sev-low:#2E7D4F; --sev-caution:#95660A; --sev-high:#B04A14; --sev-danger:#B3263F;
+  --sev-low-bg:#E4F0E4; --sev-caution-bg:#F6ECCF; --sev-high-bg:#F9E3D3; --sev-danger-bg:#F8DDDE;
+  --focus:#5B4FBF;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#191621; --panel:#211D2C; --panel2:#2A2537; --ink:#EFEAE3; --ink2:#A79FB3; --line:#372F47;
+    --accent:#A99BF0; --accent-ink:#191621; --chip:#2A2537; --chip-on:#A99BF0; --chip-on-ink:#191621;
+    --cat:#0D0B12; --net:#A99BF0;
+    --sev-low:#6BCB93; --sev-caution:#E5B84B; --sev-high:#F08B4C; --sev-danger:#F2708A;
+    --sev-low-bg:#1B2B21; --sev-caution-bg:#2E2614; --sev-high-bg:#321F13; --sev-danger-bg:#33171E;
+    --focus:#A99BF0;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#191621; --panel:#211D2C; --panel2:#2A2537; --ink:#EFEAE3; --ink2:#A79FB3; --line:#372F47;
+  --accent:#A99BF0; --accent-ink:#191621; --chip:#2A2537; --chip-on:#A99BF0; --chip-on-ink:#191621;
+  --cat:#0D0B12; --net:#A99BF0;
+  --sev-low:#6BCB93; --sev-caution:#E5B84B; --sev-high:#F08B4C; --sev-danger:#F2708A;
+  --sev-low-bg:#1B2B21; --sev-caution-bg:#2E2614; --sev-high-bg:#321F13; --sev-danger-bg:#33171E;
+  --focus:#A99BF0;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Nunito Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1440px;margin:0 auto;padding:16px 16px 60px}
+.cols{display:grid;gap:14px;align-items:start;grid-template-columns:1fr}
+@media (min-width:1100px){
+ .cols{grid-template-columns:1fr 1fr 1.3fr}
+ .cols .col{max-height:calc(100vh - 150px);overflow-y:auto;padding-right:4px;scrollbar-width:thin}
+ .cols .col > :first-child{margin-top:0}
+}
+header.app{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0 4px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px}
+.brand svg{flex:none}
+h1{font:800 30px/1 "Baloo 2","Nunito Sans",sans-serif;letter-spacing:-.01em;margin:0}
+h1 .net{color:var(--accent)}
+.meta{font:12px/1.4 "IBM Plex Mono",ui-monospace,monospace;color:var(--ink2)}
+.tag{font:800 11px/1 "Nunito Sans",sans-serif;text-transform:uppercase;letter-spacing:.09em;color:var(--ink2)}
+section.pick{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:16px;margin-top:14px}
+.pick h2{font:700 17px/1.2 "Baloo 2",sans-serif;margin:0 0 2px;display:flex;align-items:center;gap:8px}
+.pick h2 .count{font:600 12px/1 "IBM Plex Mono",monospace;background:var(--panel2);border-radius:999px;padding:4px 9px;color:var(--ink2)}
+.pick h2 .count.on{background:var(--accent);color:var(--accent-ink)}
+.hint{margin:2px 0 10px;font-size:13.5px;color:var(--ink2)}
+input.search{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--panel2);color:var(--ink);font:inherit;font-size:15px;margin-bottom:10px}
+input.search::placeholder{color:var(--ink2)}
+.grp{margin:10px 0 2px}
+.grp .tag{display:block;margin-bottom:6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+button.chip{border:1px solid var(--line);background:var(--chip);color:var(--ink);border-radius:999px;padding:10px 15px;font:600 14px/1.2 "Nunito Sans",sans-serif;cursor:pointer;text-align:left}
+button.chip small{display:block;font-weight:400;font-size:11px;color:var(--ink2);max-width:230px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+button.chip[aria-pressed="true"]{background:var(--chip-on);border-color:var(--chip-on);color:var(--chip-on-ink)}
+button.chip[aria-pressed="true"] small{color:var(--chip-on-ink);opacity:.78}
+button.chip.hidden{display:none}
+:is(button,input,summary):focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.clear{background:none;border:1px solid var(--line);color:var(--ink2);border-radius:12px;padding:9px 13px;font:700 13px/1 "Nunito Sans",sans-serif;cursor:pointer}
+.banner{border-radius:18px;padding:15px 17px;margin-top:16px;font:700 18px/1.3 "Baloo 2",sans-serif;display:none;border:1px solid var(--line)}
+.banner.show{display:block}
+.banner .sub{font:600 13.5px/1.45 "Nunito Sans",sans-serif;margin-top:4px}
+.b-low{background:var(--sev-low-bg);color:var(--sev-low)}
+.b-caution{background:var(--sev-caution-bg);color:var(--sev-caution)}
+.b-high{background:var(--sev-high-bg);color:var(--sev-high)}
+.b-danger{background:var(--sev-danger-bg);color:var(--sev-danger)}
+.card{background:var(--panel);border:1px solid var(--line);border-left:6px solid var(--line);border-radius:16px;padding:13px 15px;margin-top:12px}
+.card.low{border-left-color:var(--sev-low)}
+.card.caution{border-left-color:var(--sev-caution)}
+.card.high{border-left-color:var(--sev-high)}
+.card.danger{border-left-color:var(--sev-danger)}
+.card h3{margin:0;font:700 16.5px/1.25 "Baloo 2",sans-serif;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.badge{font:800 11px/1 "Nunito Sans",sans-serif;text-transform:uppercase;letter-spacing:.06em;border-radius:8px;padding:5px 9px}
+.badge.low{background:var(--sev-low-bg);color:var(--sev-low)}
+.badge.caution{background:var(--sev-caution-bg);color:var(--sev-caution)}
+.badge.high{background:var(--sev-high-bg);color:var(--sev-high)}
+.badge.danger{background:var(--sev-danger-bg);color:var(--sev-danger)}
+.ev{font:500 11px/1 "IBM Plex Mono",monospace;color:var(--ink2);border:1px solid var(--line);border-radius:8px;padding:4px 7px}
+.card p.note{margin:8px 0 0;font-size:14.5px}
+.mech{margin-top:10px;border-top:1px dashed var(--line);padding-top:8px}
+.mech h4{margin:0 0 4px;font:800 12px/1 "Nunito Sans",sans-serif;text-transform:uppercase;letter-spacing:.07em;color:var(--ink2)}
+.mech ul{margin:0 0 8px;padding-left:20px;font-size:14px}
+.mech li{margin:3px 0}
+.donot{background:var(--sev-danger-bg);border-radius:12px;padding:10px 13px;margin-top:10px}
+.donot h4{margin:0 0 4px;font:800 12px/1 "Nunito Sans",sans-serif;text-transform:uppercase;letter-spacing:.07em;color:var(--sev-danger)}
+.donot ul{margin:0;padding-left:20px;font-size:14px}
+.donot li{margin:3px 0}
+.call{margin-top:10px;padding:10px 13px;border-radius:12px;background:var(--panel2);font-size:14px}
+.call b{color:var(--sev-danger)}
+details.fold{margin-top:8px}
+details.fold summary{cursor:pointer;font:700 13px/1.3 "Nunito Sans",sans-serif;color:var(--accent)}
+.lowlist{margin-top:14px}
+.lowlist .item{padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+.lowlist .item:last-child{border-bottom:none}
+.lowlist .pair{font-weight:700}
+.lowlist .why{color:var(--ink2);font-size:13.5px}
+.szn{margin-top:14px}
+.szn .card{border-left-color:var(--accent)}
+.emg{margin-top:20px;background:var(--panel);border:2px solid var(--sev-danger);border-radius:18px;padding:15px 17px}
+.emg h2{margin:0 0 6px;font:800 17px/1.2 "Baloo 2",sans-serif;color:var(--sev-danger)}
+.emg ul{margin:0;padding-left:20px;font-size:14.5px}
+.emg li{margin:4px 0}
+footer{margin-top:22px;color:var(--ink2);font-size:13px}
+footer details{margin-top:8px}
+footer summary{cursor:pointer;font-weight:700}
+footer ul{padding-left:18px}
+.disc{background:var(--panel2);border-radius:12px;padding:10px 13px;margin-top:10px}
+.empty{margin-top:18px;color:var(--ink2);font-size:14.5px;text-align:center;padding:26px 14px;border:1.5px dashed var(--line);border-radius:20px}
+.empty svg{display:block;margin:0 auto 10px}
+.dose{background:var(--panel2);border-radius:14px;padding:12px 13px;margin-top:10px}
+.dose h3{margin:0 0 8px;font:700 15px/1.2 "Baloo 2",sans-serif}
+.dose .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0}
+.dose input.amt{width:110px;padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font:inherit;font-size:15px}
+.dose .unit{font:600 13px/1 "IBM Plex Mono",monospace;color:var(--ink2)}
+button.mini{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:999px;padding:7px 11px;font:600 12.5px/1.2 "Nunito Sans",sans-serif;cursor:pointer}
+button.mini[aria-pressed="true"]{background:var(--chip-on);border-color:var(--chip-on);color:var(--chip-on-ink)}
+.dose .lbl{font:800 10.5px/1 "Nunito Sans",sans-serif;text-transform:uppercase;letter-spacing:.08em;color:var(--ink2);width:100%}
+.rtable{width:100%;border-collapse:collapse;font-size:13px;margin:6px 0}
+.rtable td,.rtable th{padding:4px 6px;border-bottom:1px solid var(--line);text-align:left}
+.rtable th{font-weight:700}
+.srcnote{font-size:12px;color:var(--ink2);margin:6px 0 0}
+.dosewarn{font-size:13.5px;color:var(--ink2)}
+.bandpill{font:800 11px/1 "Nunito Sans",sans-serif;text-transform:uppercase;letter-spacing:.05em;border-radius:8px;padding:5px 9px}
+h2.results-h{font:800 21px/1.2 "Baloo 2",sans-serif;margin:22px 0 0}
+@media (prefers-reduced-motion:no-preference){button.chip{transition:background .12s,border-color .12s}}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs><g id="catnet-logo">
+  <path d="M8 62 Q50 88 92 62" fill="none" stroke="var(--net)" stroke-width="3.6" stroke-linecap="round"/>
+  <path d="M18 66 L34 78 M34 78 L52 82 M52 82 L70 77 M70 77 L84 65 M26 63 L34 78 M44 65 L52 82 M62 65 L70 77 M78 63 L84 65 M26 63 L52 82 M44 65 L70 77 M62 65 L84 65 M18 66 L44 65 M34 78 L62 65 M52 82 L78 63" fill="none" stroke="var(--net)" stroke-width="1.4" stroke-linecap="round" opacity=".65"/>
+  <g>
+    <path d="M50 56 c-13 0 -19 -8 -19 -16 c0 -6 3 -10 6 -12 l-2 -9 l8 5 c2 -.8 4.6 -1.2 7 -1.2 c2.4 0 5 .4 7 1.2 l8 -5 l-2 9 c3 2 6 6 6 12 c0 8 -6 16 -19 16 z" fill="var(--cat)" stroke="var(--net)" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M69 52 q9 2 8 -7" fill="none" stroke="var(--cat)" stroke-width="4.6" stroke-linecap="round"/>
+    <circle cx="43" cy="38" r="2.3" fill="var(--net)"/>
+    <circle cx="57" cy="38" r="2.3" fill="var(--net)"/>
+    <path d="M47 46 q3 2.6 6 0" fill="none" stroke="var(--net)" stroke-width="1.7" stroke-linecap="round"/>
+  </g>
+</g></defs>
+</svg>
+
+<div class="wrap">
+<header class="app">
+  <div class="brand">
+    <svg width="44" height="44" viewBox="0 0 100 100" role="img" aria-label="CatNet — black cat resting in a safety net"><use href="#catnet-logo"/></svg>
+    <h1>Cat<span class="net">Net</span></h1>
+  </div>
+  <div class="meta" id="meta"></div>
+</header>
+<p class="hint" style="margin:0">Interaction check for festival harm-reduction volunteers. Select the person's medication and the substances used or planned. Highest risks are listed first.</p>
+
+<div class="cols">
+<div class="col">
+<section class="pick">
+  <h2>The person <span class="count" id="facCount">0</span></h2>
+  <p class="hint">Factors that change the risk assessment. Select all that apply.</p>
+  <div id="facChips"></div>
+  <div class="row" style="margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+    <span class="tag">Weight (optional)</span>
+    <input class="search" id="weightKg" type="number" inputmode="numeric" min="30" max="250" placeholder="kg" style="max-width:100px;margin:0">
+    <span class="hint" style="margin:0">enables mg/kg readouts</span>
+  </div>
+</section>
+<section class="pick">
+  <h2>Their medication <span class="count" id="medCount">0</span></h2>
+  <p class="hint">Prescribed or regular medication, including herbal (ask specifically about St John's Wort). Search covers common brand names.</p>
+  <input class="search" id="medSearch" type="search" placeholder="Search: Xanax, Zoloft, Ritalin, tramadol…" autocomplete="off">
+  <div id="medChips"></div>
+</section>
+</div>
+
+<div class="col">
+<section class="pick">
+  <h2>Substances used or planned <span class="count" id="subCount">0</span></h2>
+  <p class="hint">Include everything: alcohol, energy drinks, non-prescribed pills.</p>
+  <input class="search" id="subSearch" type="search" placeholder="Search: MDMA, speed, ket, weed…" autocomplete="off">
+  <div id="subChips"></div>
+  <div id="dosePanels"></div>
+  <div style="margin-top:12px"><button class="clear" id="clearBtn">Clear all selections</button></div>
+</section>
+</div>
+
+<div class="col">
+<div class="banner" id="banner" role="status"></div>
+<div id="results"></div>
+
+<div class="emg">
+  <h2>Call 112 immediately — whatever the combination — if:</h2>
+  <ul>
+    <li>Unresponsive, or breathing is slow (&lt;10/min), irregular, or has gaps; blue lips</li>
+    <li>Seizure; muscle rigidity with high temperature</li>
+    <li>Chest pain lasting more than a few minutes; one-sided weakness or face droop</li>
+    <li>Temperature over ~39 °C, hot dry skin, confusion after dancing</li>
+    <li>Confusion + vomiting + headache after drinking large amounts of plain water (possible hyponatremia)</li>
+    <li>Sudden severe "thunderclap" headache</li>
+  </ul>
+</div>
+</div>
+</div>
+
+<footer>
+  <div class="disc" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+    <span id="dataver" style="font:500 12px/1.4 'IBM Plex Mono',ui-monospace,monospace"></span>
+    <button class="clear" id="updBtn" type="button">Check for updates</button>
+    <span id="updMsg" style="font-size:13px"></span>
+  </div>
+  <div class="disc" id="disclaimer"></div>
+  <details><summary>Data sources &amp; method</summary>
+    <p>Risk ratings combine the TripSit community-expert combination database (recreational × recreational) with a curated medication layer built from published pharmacology literature and official product information. Every entry carries an evidence tag: <b>well documented</b> (established literature), <b>case reports / consensus</b>, or <b>limited data</b> (theoretical, mechanism-based). Absence of a warning is not proof of safety — many combinations are simply under-studied.</p>
+    <ul id="sources"></ul>
+  </details>
+  <details><summary>What CatNet does not cover</summary>
+    <p>Exact doses and timing, personal factors (weight, tolerance, heart conditions, pregnancy), poly-combinations of 3+ substances beyond pairwise checks, and novel/unknown substances. Nicotine and most vitamins/supplements are omitted (no significant acute interactions). When the situation doesn't fit the tool, trust your training and escalate.</p>
+  </details>
+</footer>
+</div>
+
+<script>
+const DB = ///DB///;
+</script>
+<script>
+const $=s=>document.querySelector(s);
+const medSel=new Set(), subSel=new Set(), facSel=new Set();
+const doseSel={}; // subId -> {variant, amount, time}
+const RISK_ORDER={danger:3,high:2,caution:1,low:0};
+const RISK_LABEL={danger:"Dangerous",high:"High risk",caution:"Caution",low:"Low risk"};
+const EV_LABEL={est:"well documented",case:"case reports / consensus",theo:"limited data"};
+const fold=s=>s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+
+function chipHTML(kind,item){
+  if(kind==="fac")return `<button class="chip" data-kind="fac" data-id="${item.id}" aria-pressed="false">${item.label}</button>`;
+  const sub=kind==="med"?item.ex:(item.aliases||[]).join(", ");
+  return `<button class="chip" data-kind="${kind}" data-id="${item.id}" aria-pressed="false">${item.name}<small>${sub}</small></button>`;
+}
+function renderChips(){
+  const groups={};
+  DB.meds.forEach(m=>{(groups[m.grp]=groups[m.grp]||[]).push(m)});
+  $("#medChips").innerHTML=Object.entries(groups).map(([g,items])=>
+    `<div class="grp"><span class="tag">${g}</span><div class="chips">${items.map(m=>chipHTML("med",m)).join("")}</div></div>`).join("");
+  $("#subChips").innerHTML=`<div class="chips">${DB.substances.map(s=>chipHTML("sub",s)).join("")}</div>`;
+  const fgroups={};
+  DB.factors.forEach(f=>{(fgroups[f.grp]=fgroups[f.grp]||[]).push(f)});
+  $("#facChips").innerHTML=Object.entries(fgroups).map(([g,items])=>
+    `<div class="grp"><span class="tag">${g}</span><div class="chips">${items.map(f=>chipHTML("fac",f)).join("")}</div></div>`).join("");
+}
+function bindSearch(inputSel,kind){
+  $(inputSel).addEventListener("input",e=>{
+    const q=fold(e.target.value.trim());
+    document.querySelectorAll(`button.chip[data-kind="${kind}"]`).forEach(ch=>{
+      const item=(kind==="med"?DB.meds:DB.substances).find(x=>x.id===ch.dataset.id);
+      const hay=fold(item.name+" "+(item.ex||"")+" "+(item.aliases||[]).join(" "));
+      ch.classList.toggle("hidden",q&&!hay.includes(q));
+    });
+  });
+}
+document.addEventListener("click",e=>{
+  const mini=e.target.closest("button.mini");
+  if(mini){handleMini(mini);return;}
+  const ch=e.target.closest("button.chip"); if(!ch)return;
+  const set=ch.dataset.kind==="med"?medSel:ch.dataset.kind==="fac"?facSel:subSel;
+  set.has(ch.dataset.id)?set.delete(ch.dataset.id):set.add(ch.dataset.id);
+  ch.setAttribute("aria-pressed",set.has(ch.dataset.id));
+  if(ch.dataset.kind==="fac"&&ch.dataset.id==="pregnancy"&&facSel.has("pregnancy")&&!facSel.has("female")){
+    facSel.add("female");
+    const fch=document.querySelector('button.chip[data-id="female"]');
+    if(fch)fch.setAttribute("aria-pressed","true");
+  }
+  if(ch.dataset.kind==="sub"){
+    if(!subSel.has(ch.dataset.id))delete doseSel[ch.dataset.id];
+    renderDosePanels();
+  }
+  render();
+});
+function handleMini(btn){
+  const sub=btn.dataset.sub, act=btn.dataset.act;
+  const st=doseSel[sub]=doseSel[sub]||{};
+  if(act==="variant"){st.variant=st.variant===btn.dataset.v?st.variant:btn.dataset.v;}
+  else if(act==="time"){st.time=st.time===btn.dataset.v?null:btn.dataset.v;}
+  else if(act==="est"){
+    const dd=DB.doses[sub];const est=dd.estimates[+btn.dataset.i];
+    if(est.amount!=null){st.variant=est.variant;st.amount=est.amount;
+      const inp=document.querySelector(`input.amt[data-sub="${sub}"]`);if(inp)inp.value=est.amount;}
+    st.estNote=est.note||null;
+  }
+  // repaint pressed states without rebuilding inputs
+  document.querySelectorAll(`button.mini[data-sub="${sub}"]`).forEach(b=>{
+    const on=(b.dataset.act==="variant"&&b.dataset.v===st.variant)||(b.dataset.act==="time"&&b.dataset.v===st.time);
+    if(b.dataset.act!=="est")b.setAttribute("aria-pressed",on);
+  });
+  render();
+}
+document.addEventListener("input",e=>{
+  if(e.target.matches("input.amt")){
+    const sub=e.target.dataset.sub;
+    const st=doseSel[sub]=doseSel[sub]||{};
+    st.amount=e.target.value===""?null:parseFloat(e.target.value);
+    render();
+  }
+  if(e.target.id==="weightKg")render();
+});
+function renderDosePanels(){
+  const box=$("#dosePanels");
+  box.innerHTML=[...subSel].map(id=>{
+    const sub=DB.substances.find(x=>x.id===id), dd=DB.doses[id];
+    if(!dd)return "";
+    const st=doseSel[id]=doseSel[id]||{};
+    let inner="";
+    if(dd.noNumeric){
+      inner=`<p class="dosewarn">${dd.warn}</p>`;
+    }else{
+      if(!st.variant)st.variant=dd.variants[0].id;
+      const v=dd.variants.find(x=>x.id===st.variant);
+      if(dd.variants.length>1)
+        inner+=`<div class="row"><span class="lbl">Form / route</span>${dd.variants.map(x=>`<button class="mini" data-sub="${id}" data-act="variant" data-v="${x.id}" aria-pressed="${x.id===st.variant}">${x.label}</button>`).join("")}</div>`;
+      inner+=`<div class="row"><span class="lbl">Reported amount</span><input class="amt" data-sub="${id}" type="number" inputmode="decimal" min="0" step="any" value="${st.amount??""}" placeholder="?"> <span class="unit">${v.unit}</span></div>`;
+      if(dd.helper)inner+=`<p class="srcnote" style="margin:2px 0 4px">${dd.helper}</p>`;
+      if(dd.estimates&&dd.estimates.length)
+        inner+=`<div class="row"><span class="lbl">Quick estimates</span>${dd.estimates.map((e2,i)=>`<button class="mini" data-sub="${id}" data-act="est" data-i="${i}">${e2.label}</button>`).join("")}</div>`;
+      const rows=dd.variants.map(x=>{
+        const b=x.bands;
+        return `<tr><td>${x.label}</td><td>&lt;${b.light}</td><td>${b.light}–${b.common}</td><td>${b.common}–${b.strong}</td><td>${b.strong}–${b.heavy}</td><td>${b.heavy}+</td></tr>`;
+      }).join("");
+      inner+=`<details class="fold"><summary>Reference ranges (what users report taking)</summary>
+        <table class="rtable"><tr><th></th><th>thresh.</th><th>light</th><th>common</th><th>strong</th><th>heavy</th></tr>${rows}</table>
+        ${(()=>{const b0=dd.variants[0].bandDesc;return b0?`<p class="srcnote">${["light","common","strong","heavy"].map(k=>b0[k]).filter(Boolean).join("<br>")}</p>`:"";})()}
+        ${dd.cal?`<p class="srcnote">${dd.cal}</p>`:""}
+        ${dd.srcNote?`<p class="srcnote">Sources: ${dd.srcNote}</p>`:""}
+        <p class="srcnote">Descriptive ranges from PsychonautWiki/TripSit — what users report, not a recommendation. Street product content varies widely.</p>
+      </details>`;
+    }
+    inner+=`<div class="row"><span class="lbl">When taken</span>${DB.timeOpts.map(t=>`<button class="mini" data-sub="${id}" data-act="time" data-v="${t.id}" aria-pressed="${t.id===st.time}">${t.label}</button>`).join("")}</div>`;
+    return `<div class="dose"><h3>${sub.name} — amount &amp; timing</h3>${inner}</div>`;
+  }).join("");
+}
+$("#clearBtn").addEventListener("click",()=>{
+  medSel.clear();subSel.clear();facSel.clear();
+  for(const k in doseSel)delete doseSel[k];
+  const w=$("#weightKg");if(w)w.value="";
+  renderDosePanels();
+  document.querySelectorAll("button.chip").forEach(c=>c.setAttribute("aria-pressed","false"));
+  render();
+});
+
+function subPair(a,b){return DB.subPairs[a+"|"+b]||DB.subPairs[b+"|"+a];}
+function name(kind,id){return (kind==="med"?DB.meds:DB.substances).find(x=>x.id===id).name;}
+
+function collectFindings(){
+  const out=[];
+  for(const m of medSel){
+    const mp=DB.medPairs[m]; if(!mp)continue;
+    for(const s of subSel){
+      const e=mp.pairs[s];
+      if(e){out.push({a:name("med",m),b:name("sub",s),kind:"Medication × substance",...e});}
+      else {out.push({a:name("med",m),b:name("sub",s),kind:"Medication × substance",...mp.default,isDefault:true});}
+    }
+  }
+  const subs=[...subSel];
+  for(let i=0;i<subs.length;i++)for(let j=i+1;j<subs.length;j++){
+    const e=subPair(subs[i],subs[j]);
+    if(e)out.push({a:name("sub",subs[i]),b:name("sub",subs[j]),kind:"Substance × substance",...e});
+  }
+  for(const mm of DB.medMed){
+    if(medSel.has(mm.a)&&medSel.has(mm.b))
+      out.push({a:name("med",mm.a),b:name("med",mm.b),kind:"Medication × medication",...mm});
+  }
+  // personal factors vs selected substances/meds
+  for(const fid of facSel){
+    const f=DB.factors.find(x=>x.id===fid);
+    for(const t of f.triggers||[]){
+      const w=t.when||{};
+      const hitSubs=[...subSel].map(id=>DB.substances.find(s=>s.id===id))
+        .filter(s=>w.any||(w.subs||[]).includes(s.id)||(w.cats||[]).includes(s.cat));
+      const hitMeds=[...medSel].filter(id=>(w.meds||[]).includes(id)).map(id=>name("med",id));
+      const hits=[...hitSubs.map(s=>s.name),...hitMeds];
+      if(hits.length)
+        out.push({a:f.label,b:hits.join(", "),kind:"Personal factor",...t});
+    }
+  }
+  return out.sort((x,y)=>RISK_ORDER[y.risk]-RISK_ORDER[x.risk]);
+}
+
+function mechHTML(f){
+  const tpls=(f.tpl||[]).map(t=>DB.templates[t]).filter(Boolean);
+  const watch=[...new Set(tpls.flatMap(t=>t.watch))];
+  const donot=[...new Set([...(tpls.flatMap(t=>t.donot)),...(f.donot||[])])];
+  const care=[...new Set(tpls.flatMap(t=>t.care))];
+  const calls=[...new Set(tpls.map(t=>t.call))];
+  let h="";
+  if(donot.length)h+=`<div class="donot"><h4>Do not</h4><ul>${donot.map(x=>`<li>${x}</li>`).join("")}</ul></div>`;
+  if(watch.length||care.length){
+    h+=`<details class="fold" ${RISK_ORDER[f.risk]>=2?"open":""}><summary>Watch for &amp; supportive care</summary><div class="mech">`;
+    if(watch.length)h+=`<h4>Watch for</h4><ul>${watch.map(x=>`<li>${x}</li>`).join("")}</ul>`;
+    if(care.length)h+=`<h4>Supportive care</h4><ul>${care.map(x=>`<li>${x}</li>`).join("")}</ul>`;
+    h+=`</div></details>`;
+  }
+  if(calls.length)h+=`<div class="call"><b>Call for help:</b> ${calls.join(" ")}</div>`;
+  return h;
+}
+
+const LOGO_BIG=`<svg width="96" height="96" viewBox="0 0 100 100" aria-hidden="true"><use href="#catnet-logo"/></svg>`;
+
+function render(){
+  $("#facCount").textContent=facSel.size;$("#facCount").className="count"+(facSel.size?" on":"");
+  $("#medCount").textContent=medSel.size;$("#medCount").className="count"+(medSel.size?" on":"");
+  $("#subCount").textContent=subSel.size;$("#subCount").className="count"+(subSel.size?" on":"");
+  const res=$("#results"),banner=$("#banner");
+  const findings=collectFindings();
+  const active=medSel.size+subSel.size+facSel.size>0;
+  if(!active){banner.className="banner";res.innerHTML=`<div class="empty">${LOGO_BIG}No selection. Select person factors, medication and substances — the assessment updates instantly here. Works fully offline.</div>`;return;}
+  if(!findings.length&&subSel.size===0){banner.className="banner";res.innerHTML=`<div class="empty">${LOGO_BIG}Now add the substances used or planned.</div>`;return;}
+  const worst=findings.length?findings[0].risk:"low";
+  const worstCount=findings.filter(f=>f.risk===worst).length;
+  banner.className="banner show b-"+worst;
+  const bMsg={danger:"Do not combine — treat as a developing emergency risk. Read the cards below now.",
+    high:"Serious interaction risk — active monitoring needed, low threshold for medics.",
+    caution:"Real interactions in play — read the notes and keep an eye on them.",
+    low:"No major interaction signal found — usual harm-reduction basics still apply."};
+  banner.innerHTML=`${RISK_LABEL[worst].toUpperCase()}${findings.length?` — ${worstCount} ${worstCount>1?"findings":"finding"} at this level`:""}<div class="sub">${bMsg[worst]}</div>`;
+
+  let h="";
+  // Reported intake assessment
+  const doseCards=[...subSel].map(id=>{
+    const dd=DB.doses[id]; if(!dd||dd.noNumeric)return null;
+    const st=doseSel[id]; if(!st||(st.amount==null&&!st.time))return null;
+    const sub=DB.substances.find(x=>x.id===id);
+    const v=dd.variants.find(x=>x.id===(st.variant||dd.variants[0].id));
+    const b=v.bands; const amt=st.amount;
+    let band="unknown", sev="caution", bandTxt="amount unknown — treat as potentially strong; watch onset";
+    if(amt!=null&&!isNaN(amt)){
+      if(amt>=v.danger){band="danger range";sev="danger";bandTxt=`well beyond heavy use levels — active monitoring regardless of how they look now`;}
+      else if(amt>=b.heavy){band="heavy";sev="high";bandTxt=`heavy range — expect strong effects and side effects; low threshold for medics`;}
+      else if(amt>=b.strong){band="strong";sev="caution";bandTxt=`strong range — fully intoxicated; check in regularly`;}
+      else if(amt>=b.common){band="common";sev="low";bandTxt=`common recreational range`;}
+      else if(amt>=b.light){band="light";sev="low";bandTxt=`light range`;}
+      else {band="threshold";sev="low";bandTxt=`at or below threshold amounts`;}
+      const bd=v.bandDesc;
+      if(bd){const key=band==="danger range"?"danger":band;if(bd[key])bandTxt=bd[key];}
+    }
+    const w=parseFloat($("#weightKg").value);
+    let mgkg="";
+    if(dd.perKg&&amt!=null&&!isNaN(amt)&&w>0)
+      mgkg=`<p class="note">≈ <b>${(amt/w).toFixed(2)} ${v.unit}/kg</b> at ${w} kg body weight.</p>`;
+    let timeMsgs=[];
+    const t=DB.timeOpts.find(x=>x.id===st.time);
+    if(t){
+      if(t.id==="planned")timeMsgs.push("Not yet taken — this is the prevention window: talk through the risks below before, not after.");
+      else if(t.id==="repeat")timeMsgs.push(dd.redose||"Repeated dosing — assess the cumulative total, not the last dose.");
+      else if(t.maxMin&&v.onsetMin&&t.maxMin<=v.onsetMin[1])timeMsgs.push(`Taken recently — onset for this route is ${v.onsetMin[0]}–${v.onsetMin[1]} min, so the full effect may still be coming. Do not judge the situation as stable yet${v.peakNote?`; ${v.peakNote}`:""}.`);
+      else if(t.id==="gt4")timeMsgs.push(`Typical duration ${v.durH} h — likely past peak; comedown/after-effects phase.`);
+    }
+    if(dd.driving&&amt!=null&&!isNaN(amt)&&amt>0){
+      const hrs=amt/10;
+      timeMsgs.push(`Driving: full clearance of ${amt} g takes roughly ${hrs<1?"under 1":"~"+(Math.round(hrs*2)/2)} h from the last drink (~10 g/h) — and many countries require zero blood alcohol. After a heavy evening they may still be over the limit the next morning. When in doubt: not tonight.`);
+    }
+    if(st.estNote)timeMsgs.push(st.estNote+".");
+    return `<div class="card ${sev}"><h3>${sub.name} — reported intake <span class="bandpill badge ${sev}">${band}</span></h3>
+      <p class="note"><b>${amt!=null&&!isNaN(amt)?amt+" "+v.unit+", "+v.label.replace(/\s*\(.*\)$/,"").toLowerCase():"amount unknown"}</b> — ${bandTxt}.</p>
+      ${mgkg}${timeMsgs.map(m=>`<p class="note">${m}</p>`).join("")}</div>`;
+  }).filter(Boolean);
+  if(doseCards.length)h+=`<h2 class="results-h">Reported intake</h2>`+doseCards.join("");
+  const cards=findings.filter(f=>RISK_ORDER[f.risk]>=1);
+  const lows=findings.filter(f=>RISK_ORDER[f.risk]===0);
+  if(cards.length){
+    h+=`<h2 class="results-h">Interactions</h2>`;
+    h+=cards.map(f=>`<div class="card ${f.risk}">
+      <h3>${f.a} × ${f.b} <span class="badge ${f.risk}">${RISK_LABEL[f.risk]}</span> <span class="ev">${EV_LABEL[f.ev]||f.ev}</span></h3>
+      <p class="note">${f.isDefault?"<em>(class-level guidance — no specific entry for this pair)</em> ":""}${f.note}</p>
+      ${mechHTML(f)}</div>`).join("");
+  }
+  const facNotes=[...facSel].map(id=>DB.factors.find(f=>f.id===id));
+  if(facNotes.length){
+    h+=`<div class="lowlist card" style="border-left-color:var(--accent)"><h3>Person notes <span class="badge low" style="background:var(--panel2);color:var(--ink2)">${facNotes.length}</span></h3>`+
+      facNotes.map(f=>`<div class="item"><span class="pair">${f.label}</span><div class="why">${f.note}</div></div>`).join("")+`</div>`;
+  }
+  if(lows.length){
+    h+=`<div class="lowlist card low"><h3>Low risk / no major signal <span class="badge low">${lows.length}</span></h3>`+
+      lows.map(f=>`<div class="item"><span class="pair">${f.a} × ${f.b}</span><div class="why">${f.note||"No significant interaction documented."}</div></div>`).join("")+`</div>`;
+  }
+  const bases=[...subSel].map(id=>DB.substances.find(s=>s.id===id)).filter(s=>s.base&&s.base.length);
+  if(bases.length){
+    h+=`<div class="szn"><h2 class="results-h">Substance basics</h2>`+
+      bases.map(s=>{
+        const tpls=(s.tpl||[]).map(t=>DB.templates[t]).filter(Boolean);
+        let inner=`<p class="note">${s.base.join(" ")}</p>`;
+        if(tpls.length){inner+=`<details class="fold"><summary>Watch for &amp; care (${tpls.map(t=>t.name).join(", ")})</summary><div class="mech">`+
+          `<h4>Watch for</h4><ul>${[...new Set(tpls.flatMap(t=>t.watch))].map(x=>`<li>${x}</li>`).join("")}</ul>`+
+          `<h4>Do not</h4><ul>${[...new Set(tpls.flatMap(t=>t.donot))].map(x=>`<li>${x}</li>`).join("")}</ul>`+
+          `<h4>Supportive care</h4><ul>${[...new Set(tpls.flatMap(t=>t.care))].map(x=>`<li>${x}</li>`).join("")}</ul>`+
+          `</div></details>`;}
+        return `<div class="card"><h3>${s.name}</h3>${inner}</div>`;
+      }).join("")+`</div>`;
+  }
+  res.innerHTML=h;
+}
+
+$("#meta").textContent=`data v${DB.meta.version} · ${DB.meta.built} · offline`;
+$("#dataver").textContent=`Data v${DB.meta.version} (built ${DB.meta.built}). The database is reviewed against its sources every few months.`;
+const CANON="https://claude.ai/code/artifact/80f8b830-95eb-479d-ab57-9d353c9d5da6";
+function cmpVer(a,b){const pa=a.split(".").map(Number),pb=b.split(".").map(Number);for(let i=0;i<3;i++){if((pa[i]||0)!==(pb[i]||0))return (pa[i]||0)-(pb[i]||0);}return 0;}
+async function checkUpdate(manual){
+  const msg=$("#updMsg");
+  if(!location.protocol.startsWith("http")){
+    if(manual)msg.textContent=`This saved copy can't update itself — download the current version from the team link (or re-save it from ${CANON}).`;
+    return;
+  }
+  try{
+    const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"});
+    const v=await r.json();
+    if(cmpVer(v.version,DB.meta.version)>0){
+      msg.innerHTML=`New data version v${v.version} available — <button class="clear" id="updGo" type="button">update now</button>`;
+      $("#updGo").addEventListener("click",async()=>{
+        msg.textContent="Updating…";
+        try{if("caches"in window){for(const k of await caches.keys())await caches.delete(k);}
+          if("serviceWorker"in navigator){const regs=await navigator.serviceWorker.getRegistrations();for(const g of regs)await g.update();}
+        }catch(e){}
+        location.reload();
+      });
+    }else if(manual)msg.textContent=`Up to date (v${DB.meta.version}).`;
+  }catch(e){if(manual)msg.textContent="Offline — can't check now. The app keeps working with its stored data; it checks again when online.";}
+}
+$("#updBtn").addEventListener("click",()=>checkUpdate(true));
+if(location.protocol.startsWith("http"))checkUpdate(false);
+$("#disclaimer").textContent=DB.meta.disclaimer;
+$("#sources").innerHTML=DB.meta.sources.map(s=>`<li>${s}</li>`).join("");
+renderChips();bindSearch("#medSearch","med");bindSearch("#subSearch","sub");render();
+</script>
