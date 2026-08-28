@@ -50,6 +50,8 @@ section.pick{background:var(--panel);border:1px solid var(--line);border-radius:
 .hint{margin:2px 0 10px;font-size:13.5px;color:var(--ink2)}
 input.search{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--panel2);color:var(--ink);font:inherit;font-size:15px;margin-bottom:10px}
 input.search::placeholder{color:var(--ink2)}
+.selrow{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.chip.selpick{padding:6px 11px;font-size:12px;border-radius:9px}
 .grp{margin:10px 0 2px}
 .grp .tag{display:block;margin-bottom:6px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
@@ -59,7 +61,7 @@ button.chip[aria-pressed="true"]{background:var(--chip-on);border-color:var(--ch
 button.chip[aria-pressed="true"] small{color:var(--chip-on-ink);opacity:.78}
 button.chip.hidden{display:none}
 :is(button,input,summary):focus-visible{outline:3px solid var(--focus);outline-offset:2px}
-.clear{background:none;border:1px solid var(--line);color:var(--ink2);border-radius:12px;padding:9px 13px;font:700 13px/1 "Nunito Sans",sans-serif;cursor:pointer}
+.clear{background:var(--panel);border:1.5px solid var(--accent);color:var(--accent);border-radius:12px;padding:9px 13px;font:700 13px/1 "Nunito Sans",sans-serif;cursor:pointer}
 .banner{border-radius:14px;padding:14px 16px;margin-top:16px;display:none;color:var(--on-sev)}
 .banner.show{display:flex;align-items:center;gap:12px}
 .banner .bt{font:800 18px/1.15 "Baloo 2",sans-serif}
@@ -172,7 +174,12 @@ h2.results-h{font:800 21px/1.2 "Baloo 2",sans-serif;margin:22px 0 0}
     <svg width="44" height="44" viewBox="0 0 100 100" role="img" aria-label="CatNet — black cat resting in a safety net"><use href="#catnet-logo"/></svg>
     <h1>Cat<span class="net">Net</span></h1>
   </div>
-  <div class="meta" id="meta"></div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <button class="clear" id="clearBtn" title="Clear every selection and start a new assessment">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" style="vertical-align:-2px;margin-right:5px"><path d="M4 4 L20 20 M20 4 L4 20"></path></svg>New person
+    </button>
+    <div class="meta" id="meta"></div>
+  </div>
 </header>
 <p class="hint" style="margin:0">Interaction check for festival harm-reduction volunteers. Select the person's medication and the substances used or planned. Highest risks are listed first.</p>
 
@@ -192,6 +199,7 @@ h2.results-h{font:800 21px/1.2 "Baloo 2",sans-serif;margin:22px 0 0}
   <h2>Their medication <span class="count" id="medCount">0</span></h2>
   <p class="hint">Prescribed or regular medication, including herbal (ask specifically about St John's Wort). Search covers common brand names.</p>
   <input class="search" id="medSearch" type="search" placeholder="Search: Xanax, Zoloft, Ritalin, tramadol…" autocomplete="off">
+  <div class="selrow" id="medSelRow"></div>
   <div id="medChips"></div>
 </section>
 </div>
@@ -200,10 +208,9 @@ h2.results-h{font:800 21px/1.2 "Baloo 2",sans-serif;margin:22px 0 0}
 <section class="pick">
   <h2>Substances used or planned <span class="count" id="subCount">0</span></h2>
   <p class="hint">Include everything: alcohol, energy drinks, non-prescribed pills.</p>
-  <input class="search" id="subSearch" type="search" placeholder="Search: MDMA, speed, ket, weed…" autocomplete="off">
+  <div class="selrow" id="subSelRow"></div>
   <div id="subChips"></div>
   <div id="dosePanels"></div>
-  <div style="margin-top:12px"><button class="clear" id="clearBtn">Clear all selections</button></div>
 </section>
 </div>
 
@@ -212,7 +219,13 @@ h2.results-h{font:800 21px/1.2 "Baloo 2",sans-serif;margin:22px 0 0}
 <div id="results"></div>
 
 <div class="emg">
-  <h2>Call 112 (EU) / your local emergency number immediately — whatever the combination — if:</h2>
+  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:space-between;margin-bottom:4px">
+    <h2 style="margin:0">Call <span class="emnum">112</span> immediately — whatever the combination — if:</h2>
+    <label style="font:700 12px/1 'Nunito Sans',sans-serif;color:var(--ink2);display:flex;gap:6px;align-items:center">Emergency number
+      <select id="emSel" style="font:inherit;padding:5px 6px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink)">
+        <option value="112">112 (EU)</option><option value="911">911 (US/CA)</option><option value="999">999 (UK)</option><option value="000">000 (AU)</option><option value="111">111 (NZ)</option>
+      </select></label>
+  </div>
   <ul>
     <li>Unresponsive, or breathing is slow (&lt;10/min), irregular, or has gaps; blue lips</li>
     <li>Seizure; muscle rigidity with high temperature</li>
@@ -252,12 +265,15 @@ const doseSel={}; // subId -> {variant, amount, time}
 const RISK_ORDER={danger:3,high:2,caution:1,low:0};
 const RISK_LABEL={danger:"Dangerous",high:"High risk",caution:"Caution",low:"Low risk"};
 const EV_LABEL={est:"well documented",case:"case reports / consensus",theo:"limited data"};
+let emNum="112";
+try{emNum=localStorage.getItem("catnet-em")||"112";}catch(e){}
+function applyEm(t){return emNum==="112"?t:t.replace(/\b112\b/g,emNum);}
 const fold=s=>s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
 
 function chipHTML(kind,item){
   if(kind==="fac")return `<button class="chip" data-kind="fac" data-id="${item.id}" aria-pressed="false">${item.label}</button>`;
-  const sub=kind==="med"?item.ex:(item.aliases||[]).join(", ");
-  return `<button class="chip" data-kind="${kind}" data-id="${item.id}" aria-pressed="false">${item.name}<small>${sub}</small></button>`;
+  if(kind==="sub")return `<button class="chip" data-kind="sub" data-id="${item.id}" aria-pressed="false">${item.name}</button>`;
+  return `<button class="chip" data-kind="med" data-id="${item.id}" aria-pressed="false">${item.name}<small>${item.ex}</small></button>`;
 }
 function renderChips(){
   const groups={};
@@ -280,22 +296,33 @@ function bindSearch(inputSel,kind){
     });
   });
 }
+function renderSelRow(kind,set,sel){
+  const box=document.querySelector(sel); if(!box)return;
+  box.innerHTML=[...set].map(id=>{
+    const item=(kind==="med"?DB.meds:DB.substances).find(x=>x.id===id);
+    return `<button class="chip selpick" data-kind="${kind}" data-id="${id}" aria-pressed="true" title="Remove">${item.name} ✕</button>`;
+  }).join("");
+}
+function syncSel(){
+  document.querySelectorAll('button.chip:not(.selpick)').forEach(c=>{
+    const set=c.dataset.kind==="med"?medSel:c.dataset.kind==="fac"?facSel:subSel;
+    c.setAttribute("aria-pressed",set.has(c.dataset.id));
+  });
+  renderSelRow("med",medSel,"#medSelRow");
+  renderSelRow("sub",subSel,"#subSelRow");
+}
 document.addEventListener("click",e=>{
   const mini=e.target.closest("button.mini");
   if(mini){handleMini(mini);return;}
   const ch=e.target.closest("button.chip"); if(!ch)return;
   const set=ch.dataset.kind==="med"?medSel:ch.dataset.kind==="fac"?facSel:subSel;
   set.has(ch.dataset.id)?set.delete(ch.dataset.id):set.add(ch.dataset.id);
-  ch.setAttribute("aria-pressed",set.has(ch.dataset.id));
-  if(ch.dataset.kind==="fac"&&ch.dataset.id==="pregnancy"&&facSel.has("pregnancy")&&!facSel.has("female")){
-    facSel.add("female");
-    const fch=document.querySelector('button.chip[data-id="female"]');
-    if(fch)fch.setAttribute("aria-pressed","true");
-  }
+  if(ch.dataset.kind==="fac"&&ch.dataset.id==="pregnancy"&&facSel.has("pregnancy"))facSel.add("female");
   if(ch.dataset.kind==="sub"){
     if(!subSel.has(ch.dataset.id))delete doseSel[ch.dataset.id];
     renderDosePanels();
   }
+  syncSel();
   render();
 });
 function handleMini(btn){
@@ -364,7 +391,7 @@ $("#clearBtn").addEventListener("click",()=>{
   for(const k in doseSel)delete doseSel[k];
   const w=$("#weightKg");if(w)w.value="";
   renderDosePanels();
-  document.querySelectorAll("button.chip").forEach(c=>c.setAttribute("aria-pressed","false"));
+  syncSel();
   render();
 });
 
@@ -436,7 +463,7 @@ function cardHTML(f){
       ?`<div class="rw sep" style="flex-direction:column;gap:8px"><div style="display:flex;flex-direction:column;gap:8px">${inner}</div></div>`
       :`<details class="fold"><summary>Watch for &amp; supportive care</summary><div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">${inner}</div></details>`;
   }
-  if(calls.length)body+=`<div class="rw call112"><span class="lb">112 if</span><span class="bd">${calls.join(" ")}</span></div>`;
+  if(calls.length)body+=`<div class="rw call112"><span class="lb">${emNum} if</span><span class="bd">${applyEm(calls.join(" "))}</span></div>`;
   return `<div class="card ${f.risk}">
     <div class="chead"><span class="sevbits">${icon}</span><span class="ctitle">${f.a} × ${f.b}</span>
       <span class="chead-right"><span class="ev">${EV_LABEL[f.ev]||f.ev}</span><span class="sevbits" style="display:flex;align-items:center;gap:6px">${meterHTML(RISK_METER[f.risk])}<span class="sevlbl">${RISK_LABEL[f.risk]}</span></span></span>
@@ -588,7 +615,16 @@ async function checkUpdate(manual){
 }
 $("#updBtn").addEventListener("click",()=>checkUpdate(true));
 if(location.protocol.startsWith("http"))checkUpdate(false);
-$("#disclaimer").textContent=DB.meta.disclaimer;
+$("#disclaimer").textContent=applyEm(DB.meta.disclaimer);
+document.querySelectorAll(".emnum").forEach(x=>x.textContent=emNum);
+const es=$("#emSel");
+if(es){es.value=emNum;es.addEventListener("change",()=>{
+  emNum=es.value;
+  try{localStorage.setItem("catnet-em",emNum);}catch(e){}
+  document.querySelectorAll(".emnum").forEach(x=>x.textContent=emNum);
+  $("#disclaimer").textContent=applyEm(DB.meta.disclaimer);
+  render();
+});}
 $("#sources").innerHTML=DB.meta.sources.map(s=>`<li>${s}</li>`).join("");
-renderChips();bindSearch("#medSearch","med");bindSearch("#subSearch","sub");render();
+renderChips();bindSearch("#medSearch","med");syncSel();render();
 </script>
