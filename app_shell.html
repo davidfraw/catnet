@@ -7,7 +7,7 @@
   --cat:#26202B; --net:#5B4FBF;
   --sev-low:#2E7D4F; --sev-caution:#95660A; --sev-high:#B04A14; --sev-danger:#B3263F;
   --sev-low-bg:#E4F0E4; --sev-caution-bg:#F6ECCF; --sev-high-bg:#F9E3D3; --sev-danger-bg:#F8DDDE;
-  --focus:#5B4FBF;
+  --focus:#5B4FBF; --on-sev:#FFFDF8;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -16,7 +16,7 @@
     --cat:#0D0B12; --net:#A99BF0;
     --sev-low:#6BCB93; --sev-caution:#E5B84B; --sev-high:#F08B4C; --sev-danger:#F2708A;
     --sev-low-bg:#1B2B21; --sev-caution-bg:#2E2614; --sev-high-bg:#321F13; --sev-danger-bg:#33171E;
-    --focus:#A99BF0;
+    --focus:#A99BF0; --on-sev:#191621;
   }
 }
 :root[data-theme="dark"]{
@@ -25,7 +25,7 @@
   --cat:#0D0B12; --net:#A99BF0;
   --sev-low:#6BCB93; --sev-caution:#E5B84B; --sev-high:#F08B4C; --sev-danger:#F2708A;
   --sev-low-bg:#1B2B21; --sev-caution-bg:#2E2614; --sev-high-bg:#321F13; --sev-danger-bg:#33171E;
-  --focus:#A99BF0;
+  --focus:#A99BF0; --on-sev:#191621;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Nunito Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
@@ -60,18 +60,42 @@ button.chip[aria-pressed="true"] small{color:var(--chip-on-ink);opacity:.78}
 button.chip.hidden{display:none}
 :is(button,input,summary):focus-visible{outline:3px solid var(--focus);outline-offset:2px}
 .clear{background:none;border:1px solid var(--line);color:var(--ink2);border-radius:12px;padding:9px 13px;font:700 13px/1 "Nunito Sans",sans-serif;cursor:pointer}
-.banner{border-radius:18px;padding:15px 17px;margin-top:16px;font:700 18px/1.3 "Baloo 2",sans-serif;display:none;border:1px solid var(--line)}
-.banner.show{display:block}
-.banner .sub{font:600 13.5px/1.45 "Nunito Sans",sans-serif;margin-top:4px}
-.b-low{background:var(--sev-low-bg);color:var(--sev-low)}
-.b-caution{background:var(--sev-caution-bg);color:var(--sev-caution)}
-.b-high{background:var(--sev-high-bg);color:var(--sev-high)}
-.b-danger{background:var(--sev-danger-bg);color:var(--sev-danger)}
-.card{background:var(--panel);border:1px solid var(--line);border-left:6px solid var(--line);border-radius:16px;padding:13px 15px;margin-top:12px}
-.card.low{border-left-color:var(--sev-low)}
-.card.caution{border-left-color:var(--sev-caution)}
-.card.high{border-left-color:var(--sev-high)}
-.card.danger{border-left-color:var(--sev-danger)}
+.banner{border-radius:14px;padding:14px 16px;margin-top:16px;display:none;color:var(--on-sev)}
+.banner.show{display:flex;align-items:center;gap:12px}
+.banner .bt{font:800 18px/1.15 "Baloo 2",sans-serif}
+.banner .sub{font:600 13px/1.4 "Nunito Sans",sans-serif;opacity:.92;margin-top:2px}
+.banner svg{flex:none}
+.banner .meter{margin-left:auto}
+.b-low{background:var(--sev-low)}
+.b-caution{background:var(--sev-caution)}
+.b-high{background:var(--sev-high)}
+.b-danger{background:var(--sev-danger)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-top:12px;overflow:hidden}
+.chead{display:flex;align-items:center;gap:9px;padding:9px 14px}
+.card.low .chead{background:var(--sev-low-bg)}
+.card.caution .chead{background:var(--sev-caution-bg)}
+.card.high .chead{background:var(--sev-high-bg)}
+.card.danger .chead{background:var(--sev-danger-bg)}
+.card.info .chead{background:var(--panel2)}
+.card.low .sevbits{color:var(--sev-low)}
+.card.caution .sevbits{color:var(--sev-caution)}
+.card.high .sevbits{color:var(--sev-high)}
+.card.danger .sevbits{color:var(--sev-danger)}
+.card.info .sevbits{color:var(--accent)}
+.chead .ctitle{font:700 14.5px/1.25 "Baloo 2",sans-serif}
+.chead .sevlbl{font:800 10px/1 "Nunito Sans",sans-serif;text-transform:uppercase;letter-spacing:.07em}
+.chead-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.meter{display:flex;gap:3px}
+.meter i{width:15px;height:6px;border-radius:3px;background:var(--line);display:block}
+.meter i.on{background:currentColor}
+.cbody{padding:10px 14px;display:flex;flex-direction:column;gap:8px}
+.rw{display:flex;gap:10px;font-size:13.5px;line-height:1.5}
+.rw .lb{flex:none;width:50px;font-weight:800;font-size:10.5px;letter-spacing:.05em;color:var(--ink2);padding-top:2px;text-transform:uppercase}
+.rw.never .lb,.rw.call112 .lb{color:var(--sev-danger)}
+.rw ul{margin:0;padding-left:16px}
+.rw li{margin:2px 0}
+.rw .bd{min-width:0}
+.rw.sep{border-top:1px dashed var(--line);padding-top:8px}
 .card h3{margin:0;font:700 16.5px/1.25 "Baloo 2",sans-serif;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .badge{font:800 11px/1 "Nunito Sans",sans-serif;text-transform:uppercase;letter-spacing:.06em;border-radius:8px;padding:5px 9px}
 .badge.low{background:var(--sev-low-bg);color:var(--sev-low)}
@@ -92,13 +116,13 @@ button.chip.hidden{display:none}
 .call b{color:var(--sev-danger)}
 details.fold{margin-top:8px}
 details.fold summary{cursor:pointer;font:700 13px/1.3 "Nunito Sans",sans-serif;color:var(--accent)}
-.lowlist{margin-top:14px}
+.lowlist{margin-top:14px;padding:12px 14px}
 .lowlist .item{padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
 .lowlist .item:last-child{border-bottom:none}
 .lowlist .pair{font-weight:700}
 .lowlist .why{color:var(--ink2);font-size:13.5px}
 .szn{margin-top:14px}
-.szn .card{border-left-color:var(--accent)}
+
 .emg{margin-top:20px;background:var(--panel);border:2px solid var(--sev-danger);border-radius:18px;padding:15px 17px}
 .emg h2{margin:0 0 6px;font:800 17px/1.2 "Baloo 2",sans-serif;color:var(--sev-danger)}
 .emg ul{margin:0;padding-left:20px;font-size:14.5px}
@@ -188,7 +212,7 @@ h2.results-h{font:800 21px/1.2 "Baloo 2",sans-serif;margin:22px 0 0}
 <div id="results"></div>
 
 <div class="emg">
-  <h2>Call 112 immediately — whatever the combination — if:</h2>
+  <h2>Call 112 (EU) / your local emergency number immediately — whatever the combination — if:</h2>
   <ul>
     <li>Unresponsive, or breathing is slow (&lt;10/min), irregular, or has gaps; blue lips</li>
     <li>Seizure; muscle rigidity with high temperature</li>
@@ -382,6 +406,43 @@ function collectFindings(){
   return out.sort((x,y)=>RISK_ORDER[y.risk]-RISK_ORDER[x.risk]);
 }
 
+const ICONS={
+ SS:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 14 C4 8 8 4 12 4 C16 4 20 8 20 14"></path><path d="M8 14 L10 11 L13 16 L15 12"></path></svg>',
+ CNSDEP:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 12 C7 12 7 8 10 8 C13 8 13 16 16 16 C19 16 19 12 21 12"></path><path d="M4 19 L20 19"></path></svg>',
+ CARDIO:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20 C7 16 3 12.5 3 8.5 C3 5.8 5 4 7.5 4 C9.4 4 11 5 12 6.6 C13 5 14.6 4 16.5 4 C19 4 21 5.8 21 8.5 C21 12.5 17 16 12 20 Z"></path></svg>',
+ HYPERTHERMIA:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10 3 L10 14 A4 4 0 1 0 14 14 L14 3 Z"></path><line x1="12" y1="8" x2="12" y2="16"></line></svg>',
+ SEIZURE:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3 L5 13 L11 13 L9 21 L19 9 L13 9 Z"></path></svg>',
+ HTN:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 15 A8 8 0 0 1 20 15"></path><path d="M12 15 L16 9"></path><path d="M3 19 L21 19"></path></svg>',
+ PSYCH:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M8.5 10 L10.5 10 M13.5 10 L15.5 10 M9 15.5 C10 14.5 14 14.5 15 15.5"></path></svg>',
+ HYPOGLY:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 3 C9 8 6 11 6 15 A6 6 0 0 0 18 15 C18 11 15 8 12 3 Z"></path></svg>',
+ generic:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 8 L12 13"></path><circle cx="12" cy="16.5" r="0.7" fill="currentColor"></circle></svg>'};
+function meterHTML(n){let h='<span class="meter">';for(let i=1;i<=4;i++)h+=`<i class="${i<=n?'on':''}"></i>`;return h+'</span>';}
+const RISK_METER={low:1,caution:2,high:3,danger:4};
+
+function cardHTML(f){
+  const icon=ICONS[(f.tpl||[])[0]]||ICONS.generic;
+  const tpls=(f.tpl||[]).map(t=>DB.templates[t]).filter(Boolean);
+  const donot=[...new Set([...(tpls.flatMap(t=>t.donot)),...(f.donot||[])])];
+  const watch=[...new Set(tpls.flatMap(t=>t.watch))];
+  const care=[...new Set(tpls.flatMap(t=>t.care))];
+  const calls=[...new Set(tpls.map(t=>t.call))];
+  let body=`<div class="rw"><span class="lb">Why</span><span class="bd">${f.isDefault?"<em>(class-level guidance — no specific entry for this pair)</em> ":""}${f.note}</span></div>`;
+  if(donot.length)body+=`<div class="rw never"><span class="lb">Never</span><ul class="bd">${donot.map(x=>`<li>${x}</li>`).join("")}</ul></div>`;
+  if(watch.length||care.length){
+    let inner="";
+    if(watch.length)inner+=`<div class="rw"><span class="lb">Watch</span><span class="bd">${watch.join(" · ")}</span></div>`;
+    if(care.length)inner+=`<div class="rw"><span class="lb">Care</span><span class="bd">${care.join(" · ")}</span></div>`;
+    body+=RISK_ORDER[f.risk]>=2
+      ?`<div class="rw sep" style="flex-direction:column;gap:8px"><div style="display:flex;flex-direction:column;gap:8px">${inner}</div></div>`
+      :`<details class="fold"><summary>Watch for &amp; supportive care</summary><div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">${inner}</div></details>`;
+  }
+  if(calls.length)body+=`<div class="rw call112"><span class="lb">112 if</span><span class="bd">${calls.join(" ")}</span></div>`;
+  return `<div class="card ${f.risk}">
+    <div class="chead"><span class="sevbits">${icon}</span><span class="ctitle">${f.a} × ${f.b}</span>
+      <span class="chead-right"><span class="ev">${EV_LABEL[f.ev]||f.ev}</span><span class="sevbits" style="display:flex;align-items:center;gap:6px">${meterHTML(RISK_METER[f.risk])}<span class="sevlbl">${RISK_LABEL[f.risk]}</span></span></span>
+    </div><div class="cbody">${body}</div></div>`;
+}
+
 function mechHTML(f){
   const tpls=(f.tpl||[]).map(t=>DB.templates[t]).filter(Boolean);
   const watch=[...new Set(tpls.flatMap(t=>t.watch))];
@@ -415,10 +476,11 @@ function render(){
   const worstCount=findings.filter(f=>f.risk===worst).length;
   banner.className="banner show b-"+worst;
   const bMsg={danger:"Do not combine — treat as a developing emergency risk. Read the cards below now.",
-    high:"Serious interaction risk — active monitoring needed, low threshold for medics.",
+    high:"Serious interaction risk — watch them actively and call medics early; a false alarm is fine.",
     caution:"Real interactions in play — read the notes and keep an eye on them.",
     low:"No major interaction signal found — usual harm-reduction basics still apply."};
-  banner.innerHTML=`${RISK_LABEL[worst].toUpperCase()}${findings.length?` — ${worstCount} ${worstCount>1?"findings":"finding"} at this level`:""}<div class="sub">${bMsg[worst]}</div>`;
+  banner.innerHTML=`<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 L22 20 L2 20 Z"></path><line x1="12" y1="10" x2="12" y2="14"></line><circle cx="12" cy="17" r="0.6" fill="currentColor"></circle></svg>
+    <div><div class="bt">${RISK_LABEL[worst].toUpperCase()}${findings.length?` — ${worstCount} ${worstCount>1?"findings":"finding"}`:""}</div><div class="sub">${bMsg[worst]}</div></div>${meterHTML(RISK_METER[worst])}`;
 
   let h="";
   // Reported intake assessment
@@ -431,7 +493,7 @@ function render(){
     let band="unknown", sev="caution", bandTxt="amount unknown — treat as potentially strong; watch onset";
     if(amt!=null&&!isNaN(amt)){
       if(amt>=v.danger){band="danger range";sev="danger";bandTxt=`well beyond heavy use levels — active monitoring regardless of how they look now`;}
-      else if(amt>=b.heavy){band="heavy";sev="high";bandTxt=`heavy range — expect strong effects and side effects; low threshold for medics`;}
+      else if(amt>=b.heavy){band="heavy";sev="high";bandTxt=`heavy range — expect strong effects and side effects; call medics early if anything looks off`;}
       else if(amt>=b.strong){band="strong";sev="caution";bandTxt=`strong range — fully intoxicated; check in regularly`;}
       else if(amt>=b.common){band="common";sev="low";bandTxt=`common recreational range`;}
       else if(amt>=b.light){band="light";sev="low";bandTxt=`light range`;}
@@ -456,23 +518,26 @@ function render(){
       timeMsgs.push(`Driving: full clearance of ${amt} g takes roughly ${hrs<1?"under 1":"~"+(Math.round(hrs*2)/2)} h from the last drink (~10 g/h) — and many countries require zero blood alcohol. After a heavy evening they may still be over the limit the next morning. When in doubt: not tonight.`);
     }
     if(st.estNote)timeMsgs.push(st.estNote+".");
-    return `<div class="card ${sev}"><h3>${sub.name} — reported intake <span class="bandpill badge ${sev}">${band}</span></h3>
-      <p class="note"><b>${amt!=null&&!isNaN(amt)?amt+" "+v.unit+", "+v.label.replace(/\s*\(.*\)$/,"").toLowerCase():"amount unknown"}</b> — ${bandTxt}.</p>
-      ${mgkg}${timeMsgs.map(m=>`<p class="note">${m}</p>`).join("")}</div>`;
+    const bandMeter={"threshold":1,"light":1,"common":2,"strong":3,"heavy":4,"danger range":4,"unknown":2}[band];
+    return `<div class="card ${sev}">
+      <div class="chead"><span class="sevbits">${ICONS[(DB.substances.find(x=>x.id===id).tpl||[])[0]]||ICONS.generic}</span><span class="ctitle">${sub.name} — reported intake</span>
+        <span class="chead-right"><span class="sevbits" style="display:flex;align-items:center;gap:6px">${meterHTML(bandMeter)}<span class="sevlbl">${band}</span></span></span></div>
+      <div class="cbody">
+        <div class="rw"><span class="lb">Taken</span><span class="bd"><b>${amt!=null&&!isNaN(amt)?amt+" "+v.unit+", "+v.label.replace(/\s*\(.*\)$/,"").toLowerCase():"amount unknown"}</b> — ${bandTxt}.</span></div>
+        ${mgkg?`<div class="rw"><span class="lb">Per kg</span><span class="bd">${mgkg.replace(/<\/?p[^>]*>/g,"")}</span></div>`:""}
+        ${timeMsgs.map(m=>`<div class="rw"><span class="lb">Timing</span><span class="bd">${m}</span></div>`).join("")}
+      </div></div>`;
   }).filter(Boolean);
   if(doseCards.length)h+=`<h2 class="results-h">Reported intake</h2>`+doseCards.join("");
   const cards=findings.filter(f=>RISK_ORDER[f.risk]>=1);
   const lows=findings.filter(f=>RISK_ORDER[f.risk]===0);
   if(cards.length){
     h+=`<h2 class="results-h">Interactions</h2>`;
-    h+=cards.map(f=>`<div class="card ${f.risk}">
-      <h3>${f.a} × ${f.b} <span class="badge ${f.risk}">${RISK_LABEL[f.risk]}</span> <span class="ev">${EV_LABEL[f.ev]||f.ev}</span></h3>
-      <p class="note">${f.isDefault?"<em>(class-level guidance — no specific entry for this pair)</em> ":""}${f.note}</p>
-      ${mechHTML(f)}</div>`).join("");
+    h+=cards.map(cardHTML).join("");
   }
   const facNotes=[...facSel].map(id=>DB.factors.find(f=>f.id===id));
   if(facNotes.length){
-    h+=`<div class="lowlist card" style="border-left-color:var(--accent)"><h3>Person notes <span class="badge low" style="background:var(--panel2);color:var(--ink2)">${facNotes.length}</span></h3>`+
+    h+=`<div class="lowlist card info"><h3 style="font-size:15px">Person notes <span class="badge low" style="background:var(--panel2);color:var(--ink2)">${facNotes.length}</span></h3>`+
       facNotes.map(f=>`<div class="item"><span class="pair">${f.label}</span><div class="why">${f.note}</div></div>`).join("")+`</div>`;
   }
   if(lows.length){
@@ -482,15 +547,15 @@ function render(){
   const bases=[...subSel].map(id=>DB.substances.find(s=>s.id===id)).filter(s=>s.base&&s.base.length);
   if(bases.length){
     h+=`<div class="szn"><h2 class="results-h">Substance basics</h2>`+
-      bases.map(s=>{
-        const tpls=(s.tpl||[]).map(t=>DB.templates[t]).filter(Boolean);
-        let inner=`<p class="note">${s.base.join(" ")}</p>`;
-        if(tpls.length){inner+=`<details class="fold"><summary>Watch for &amp; care (${tpls.map(t=>t.name).join(", ")})</summary><div class="mech">`+
-          `<h4>Watch for</h4><ul>${[...new Set(tpls.flatMap(t=>t.watch))].map(x=>`<li>${x}</li>`).join("")}</ul>`+
-          `<h4>Do not</h4><ul>${[...new Set(tpls.flatMap(t=>t.donot))].map(x=>`<li>${x}</li>`).join("")}</ul>`+
-          `<h4>Supportive care</h4><ul>${[...new Set(tpls.flatMap(t=>t.care))].map(x=>`<li>${x}</li>`).join("")}</ul>`+
+      bases.map(sb=>{
+        const tpls=(sb.tpl||[]).map(t=>DB.templates[t]).filter(Boolean);
+        let inner=`<div class="rw"><span class="lb">Know</span><span class="bd">${sb.base.join(" ")}</span></div>`;
+        if(tpls.length){inner+=`<details class="fold"><summary>Watch for &amp; care (${tpls.map(t=>t.name).join(", ")})</summary><div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">`+
+          `<div class="rw"><span class="lb">Watch</span><span class="bd">${[...new Set(tpls.flatMap(t=>t.watch))].join(" · ")}</span></div>`+
+          `<div class="rw never"><span class="lb">Never</span><ul class="bd">${[...new Set(tpls.flatMap(t=>t.donot))].map(x=>`<li>${x}</li>`).join("")}</ul></div>`+
+          `<div class="rw"><span class="lb">Care</span><span class="bd">${[...new Set(tpls.flatMap(t=>t.care))].join(" · ")}</span></div>`+
           `</div></details>`;}
-        return `<div class="card"><h3>${s.name}</h3>${inner}</div>`;
+        return `<div class="card info"><div class="chead"><span class="sevbits">${ICONS[(sb.tpl||[])[0]]||ICONS.generic}</span><span class="ctitle">${sb.name}</span></div><div class="cbody">${inner}</div></div>`;
       }).join("")+`</div>`;
   }
   res.innerHTML=h;
@@ -498,7 +563,7 @@ function render(){
 
 $("#meta").textContent=`data v${DB.meta.version} · ${DB.meta.built} · offline`;
 $("#dataver").textContent=`Data v${DB.meta.version} (built ${DB.meta.built}). The database is reviewed against its sources every few months.`;
-const CANON="https://claude.ai/code/artifact/80f8b830-95eb-479d-ab57-9d353c9d5da6";
+const CANON="https://davidfraw.github.io/catnet/";
 function cmpVer(a,b){const pa=a.split(".").map(Number),pb=b.split(".").map(Number);for(let i=0;i<3;i++){if((pa[i]||0)!==(pb[i]||0))return (pa[i]||0)-(pb[i]||0);}return 0;}
 async function checkUpdate(manual){
   const msg=$("#updMsg");

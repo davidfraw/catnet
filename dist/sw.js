@@ -1,5 +1,5 @@
 // CatNet offline cache — bump CACHE on every data/app update
-const CACHE = "catnet-v1.4.0";
+const CACHE = "catnet-v1.5.0";
 const ASSETS = ["./", "index.html", "manifest.json", "icon.svg", "version.json", "database.json", "catnet-install.html"];
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));
